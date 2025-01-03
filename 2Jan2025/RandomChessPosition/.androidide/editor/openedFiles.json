@@ -1,0 +1,80 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/RandomChessPosition/app/src/main/res/layout/activity_main.xml",
+      "selection": {
+        "end": {
+          "column": 52,
+          "index": 18272,
+          "line": 598
+        },
+        "start": {
+          "column": 52,
+          "index": 18272,
+          "line": 598
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/RandomChessPosition/app/src/main/res/values/colors.xml",
+      "selection": {
+        "end": {
+          "column": 27,
+          "index": 115,
+          "line": 3
+        },
+        "start": {
+          "column": 27,
+          "index": 115,
+          "line": 3
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/RandomChessPosition/app/src/main/java/com/example/randomchessposition/MainActivity.java",
+      "selection": {
+        "end": {
+          "column": 47,
+          "index": 420,
+          "line": 12
+        },
+        "start": {
+          "column": 47,
+          "index": 420,
+          "line": 12
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/RandomChessPosition/build.gradle.kts",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 231,
+          "line": 4
+        },
+        "start": {
+          "column": 1,
+          "index": 231,
+          "line": 4
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/RandomChessPosition/app/src/main/AndroidManifest.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/RandomChessPosition/app/src/main/res/layout/activity_main.xml"
+}

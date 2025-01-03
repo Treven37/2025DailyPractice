@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blue</title>
+	<meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=no"/>
+	<style>
+		html {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			transform-origin: top left;
+			transform: translate(100vw, 0) rotate(90deg);
+			height: 100vw;
+			width: 93vh;
+			position: fixed;
+			top: 0;
+		}
+		@media screen and (orientation:landscape) {
+			/* Landscape styles here */
+			html {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			transform-origin: top left;
+			transform: rotate(0);
+			height: 100vh;
+			width: 100vw;
+			position: fixed;
+			top: 0;
+			}
+			
+		}
+		* {
+			color: rgb(237,237,255);
+			box-sizing: border-box;
+			-webkit-touch-callout: none;
+    		-webkit-user-select: none;
+    		-khtml-user-select: none;
+   		 -moz-user-select: none;
+ 		   -ms-user-select: none;
+ 		   user-select: none;
+		}
+		#n, #p, button {
+			color: black;
+		}
+		@keyframes chest {
+			0% {
+				height: 137px;
+				width: 173px;
+				bottom: 0%;
+				right: 14%;
+			}
+			50% {
+				height: 173px;
+				width: 237px;
+				bottom: 0%;
+				right: 11%;
+			}
+			100% {
+				height: 137px;
+				width: 173px;
+				bottom: 0%;
+				right: 14%;
+			}
+		}
+		.chest {
+			animation: chest 0.3s both;
+		}
+		@keyframes fadeout {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}	
+		}
+		.fadeout {
+			animation: fadeout 1s both;
+		}
+		@keyframes fadein {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		.fadein {
+			animation: fadein 1s both;
+		}
+		@keyframes right {
+			0% {
+				margin-left: 0;
+			}
+			100% {
+				margin-left: 50%;
+			}
+		}
+		.right {
+			animation: right 1s both;
+		}
+		@keyframes change {
+			0% {
+				margin-left: 0;
+			}
+			50% {
+				margin-left: 50%;
+			}
+			50.5% {
+				margin-left: -50%;
+			}
+			100% {
+				margin-left: 0%;
+			}
+		}
+		.change {
+			animation: change 0.5s both; 
+		}
+		@keyframes left {
+			0% {
+				margin-right: 0%;
+			}
+			100% {
+				margin-right: 50%;
+			}
+		}
+		.left {
+			animation: left 1s both;
+		}
+		@keyframes atext {
+			0% {
+				color: rgb(84,84,173);
+			}
+			100% {
+				color: rgb(0,0,173);
+			}
+		}
+		.atext {
+			animation: atext 1s both;
+		}
+		@keyframes btext {
+			0% {
+				color: rgb(0,0,173);
+			}
+			100% {
+				color: rgb(84,84,173);
+			}
+		}
+		.btext {
+			animation: btext 1s both;
+		}
+		* {
+			box-sizing: border-box;
+		}
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			display: flex;
+			height: 100%;
+			width: 100%;
+			top: 0;
+			left: 0;
+			background: black;
+		}
+		.firstpage {
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-flow: column;
+			background: black;
+		}
+		.space {
+			flex: 1;
+			opacity: 0;
+		}
+		.box {
+			flex: 8;
+			opacity: 1;
+			display: flex;
+			justify-content: center;
+			flex-flow: row;
+			z-index: 5;
+		}
+		.leaderboard, .login {
+			height: 100%;
+			width: 48%;
+			margin: 0 17px;
+			border-radius: 48px;
+			background: rgba(0,0,73, 0.8);
+			opacity: 0.9;
+			display: flex;
+			flex-flow: column;
+			color: white;
+		}
+		.title {
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			flex: 2;
+			background: rgba(0,0,0,0);
+			display: flex;
+			flex-flow: row;
+		}
+		.title * {
+			margin: 0 4px;
+			font-size: 37px;
+		}
+		.list {
+			display: flex;
+			flex-flow: column;
+			flex: 17;
+			background: rgba(0,0,0,0);
+		}
+		.row {
+			flex: 1;
+			width: 100%;
+			display: flex;
+			flex-flow: row;
+			background: rgba(0,0,0,0);
+		}
+		.row * {
+			justify-content: center;
+			text-align: center;
+			display: flex;
+		}
+		.rank {
+			flex: 4;
+			justify-content: center;
+			align-items: center;
+		}
+		.name {
+			flex: 11;
+			align-items: center;
+			justify-content: left;
+			font-weight: 500;
+			font-size: 26px;
+		}
+		.score {
+			flex: 11;
+			font-size: 21px;
+			font-weight: 600;
+			align-items: center;
+		}
+		.login * {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+		}
+		.Log {
+			align-items: center;
+			align-text: center;
+			justify-content: center;
+			font-weight: 600;
+			font-size: 26px;
+			padding: 0;
+			margin-top: 11%;
+			margin-bottom: 5%;
+		}
+		h1 {
+			margin-top: 15px;
+			margin-bottom: 7px;
+		}
+		.switch {
+			flex-flow: row;
+		}
+		.button {
+			flex: 2;
+			height: 55px;
+			background: rgb(11,11,173);
+			margin-top: 2px;
+			margin-bottom: 10px;
+			border-radius: 23px;
+			display: flex;
+			justify-content: left;
+		}
+		.block {
+			background: rgb(84,84,173);
+			height: 100%;
+			border-radius: 23px;
+			width: 50%;
+		}
+		.tsign {
+			position: absolute;
+			left: 24.5%;
+			top: 29%;
+			z-index: 6;
+			color: rgb(84,84,173);
+			font-weight: 600;
+			font-size: 25px;
+		}
+		.tlog {
+			position: absolute;
+			left: 15%;
+			top: 29%;
+			z-index: 6;
+			color: rgb(0,0,173);
+			font-weight: 700;
+			font-size: 25px;
+		}
+		.firstpage input {
+			width: 73%;
+			height: 48px;
+			margin: 15px 0;
+			margin-left: -48px;
+			border-radius: 17px;
+			padding-left: 55px;
+			font-size: 21px;
+		}
+		.firstpage button {
+			width: 37%;
+			height: 59px;
+			margin: 11px auto;
+			bottom: 14px;
+			border-radius: 23px;
+		}
+		.username {
+			display: flex;
+		}
+		.username img, .password img {
+			width: 40px;
+			height: 40px;
+			z-index: 1;
+		}
+		#game {
+			background: black;
+			height: 100%;
+			width: 100%;
+			position: fixed;
+			padding: 0;
+			margin: 0;
+			justify-content: center;
+			align-items: center;
+			display: none;
+			
+		}
+		.blue {
+			height: 100%;
+			width: 100%;
+		}
+		.bluechest {
+			height: 137px;
+			width: 173px;
+			display: none;
+			position: fixed;
+			bottom: 0%;
+			right: 14%;
+			z-index: 2;
+		}
+		#group {
+			position: fixed;
+			position: fixed;
+			margin: 0;
+			padding: 0;
+			bottom: 3%;
+			right: 2%;
+			display: flex;
+			flex-flow: column;
+			z-index: 2;
+		}
+		.fishBlock, #shop, #score, #scoreNsec, #usernameContainer, #openlogout, #openattack {
+			display: none;
+			position: fixed;
+			z-index: 2;
+		}
+		.fishBlock {
+			z-index: 1;
+			display: none;
+			top: 37%;
+			left: 73%;
+			border-radius: 50%;
+			height: 137px;
+			width: 137px;
+			background: rgba(0, 0, 73, 1);
+			opacity: 0.7;
+		}
+		.fishBlock div {
+			display: flex;
+			width: 100%;
+			height: 15px;
+			padding: auto;
+			justify-content: center;
+			align-items: center;
+		}
+		.fishBlock h5 {
+			font-size: 13px;
+			font-weight: 700;
+			justify-content: center;
+			padding: 0;
+			margin: 0;
+		}
+		#fishImg {
+			height: 95%;
+			width: 95%;
+			margin: 2.5%;
+			border-radius: 50%;
+			opacity: 0.9;
+		}
+		#score {
+			margin: 0;
+			padding: 0;
+			height: 84px;
+			top: 3%;
+			left: 2%;
+			font-size: 62px;
+			background: rgba(0,0,73,0.5);
+			border-radius: 15px;
+			padding: 0 37px;
+			align-items: center;
+			vertical-align: center;
+		}
+		#scoreNum {
+			display: inline;
+			align-items: center;
+			height: 100%;
+		}
+		#logout {
+			height: 59px;
+			width: 59px;
+			position: relative;
+			margin: 4px;
+			border-radius: 24px;
+			z-index: 2;
+		}
+		#attack {
+			height: 59px;
+			width: 59px;
+			position: relative;
+			margin: 4px;
+			border-radius: 24px;
+			z-index: 2;
+		}
+		#clickShop {
+			height: 59px;
+			width: 59px;
+			position: relative;
+			margin: 4px;
+			border-radius: 24px;
+			z-index: 2;
+		}
+		#username, #sec, #tap {
+			display: flex;
+			margin: 3px;
+			padding: 0 10%;
+			background: rgba(0,0,73,0.4);
+			border-radius: 15px;
+			width: 373px;
+			top: 3%;
+			font-weight: 700;
+			align-items: center;
+			justify-content: left;
+			height: 37px;
+			z-index: 2;
+		}
+		#username, #sec, #tap {
+			align-items: center;
+			justify-content: center;
+			font-size: 26px;
+			width: 100%;
+		}
+		#shop, #openlogout, #openattack {
+			margin: auto;
+			height: 84%;
+			width: 73%;
+			background: rgba(0,0,73,0.6);
+			z-index: 5;
+			border-radius: 73px;
+		}
+		.close {
+			height: 48px;
+			width: 48px;
+			top: 8%;
+			right: 14%;
+			position: fixed;
+		}
+		#rightInfo {
+			z-index: 2;
+			position: fixed;
+			flex-flow: column;
+			display: none;
+			width: 173px;
+			top: 3%;
+			right: 2%;
+		}
+		.groupBuy {
+			position: fixed;
+			background: rgba (0,0,73,0.7);
+			display: flex;
+			top: 65%;
+			left: 0%;
+			width: 100%;
+			height: 48px;
+			padding-left: 31%;
+		}
+		#buyA, #buyB, #buyC {
+			border-radius: 21px;
+			width: 14%;
+			margin-right: 5%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		#buyD, #buyE, #buyF, #buyG {
+			position: fixed;
+			border-radius: 21px;
+			width: 9%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		#buyD {
+			left: 19%;
+			bottom: 11%;
+		}
+		#buyE {
+			right: 18%;
+			bottom: 11%;
+		}
+		#buyF {
+			left: 19%;
+			top: 27%;
+		}
+		#buyG {
+			left: 20%;
+			top: 32%;
+			background: red;
+			width: 8%;
+			height: 5%;
+		}
+		.close {
+			z-index: 2;
+		}
+	</style>
+</head>
+<body>
+	<div class="firstpage" id="firstpage">
+		<img style="position: fixed; height:100%; width:100%;" src="./assets/homebg.png"/>
+		<div class="space"></div>
+		<div class="box">
+			<div class="space"></div>
+			<div class="box">
+				<div class="leaderboard">
+					<div class="title">
+						<div class="img">
+							<img src="./assets/rank.png" style="height: 48px; width: 48px; border-radius: 50%; margin-top: 7px;"/>
+						</div>
+						<div class="text">
+							<h2>Leaderboard</h2>
+						</div>
+					</div>
+					<div class="list">
+						<div class="row">
+							<div class="rank">
+								1
+							</div>
+							<div class="name" id="name0">
+								
+							</div>
+							<div class="score" id="score0">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								2
+							</div>
+							<div class="name" id="name1">
+								
+							</div>
+							<div class="score" id="score1">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								3
+							</div>
+							<div class="name" id="name2">
+								
+							</div>
+							<div class="score" id="score2">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								4
+							</div>
+							<div class="name" id="name3">
+								
+							</div>
+							<div class="score" id="score3">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								5
+							</div>
+							<div class="name" id="name4">
+								
+							</div>
+							<div class="score" id="score4">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								6
+							</div>
+							<div class="name" id="name5">
+								
+							</div>
+							<div class="score" id="score5">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								7
+							</div>
+							<div class="name" id="name6">
+								
+							</div>
+							<div class="score" id="score6">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								8
+							</div>
+							<div class="name" id="name7">
+								
+							</div>
+							<div class="score" id="score7">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								9
+							</div>
+							<div class="name" id="name8">
+								
+							</div>
+							<div class="score" id="score8">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								10
+							</div>
+							<div class="name" id="name9">
+								
+							</div>
+							<div class="score" id="score9">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="login">
+					<div class="Log">
+						<h1 id="titlelog">Sign-up</h1>
+					</div>
+					<div class="switch">
+						<div class="space"></div>
+						<div class="button" id="block" onClick="log();">
+							<div class="block" id="button">
+								<h3 class="tlog" id="tlog">sign-up</h3>
+								<h3 class="tsign" id="tsign">log-in</h3>
+							</div>
+						</div>
+						<div class="space"></div>
+					</div>
+					<div class="username">
+						<img src="./assets/name.png"/>
+						<input type="text" id="n" placeholder="Username"/>
+					</div>
+					<div class="password">
+						<img src="./assets/pass.png"/>
+						<input type="password" id="p" placeholder="Password"/>
+					</div>
+					<button onClick="submit();">Enter</button>
+				</div>
+			</div>
+			<div class="space"></div>
+		</div>
+		<div class="space"></div>
+	</div>
+	<div id="game">
+		<img style="position: fixed; height:100%; width:100%; z-index: -1;" src="./assets/homebg.png"/>
+		<div class="blue">
+			<img style="height: 100%; width: 100%; border-radius: 11px; opacity: 0.8;" src="./assets/images.jpg"/>
+		</div>
+		<div id="chest" class="bluechest" onClick="ctap();">
+			<img style="height: 100%; width: 100%; border-radius: 62px 62px 11px 11px;" src="./assets/bluechest.png"/>
+		</div>
+		
+		<div id="score">
+			<img src="./assets/rank.png" style="height: 69px; width: 69px; display: inline; border-radius: 50%; margin-right: 3px;"/><h4 style="display: inline;"> <span id="scoreNum"></span></h4>
+		</div>
+		<div id="shop">
+			<div class="close" onClick='Aclosed="shop"; Aclose();'>
+				<img style="height: 100%; width: 100%; border-radius: 73px;" src="./assets/close.jpg"/>
+			</div>
+			<img style="height: 100%; width: 100%; border-radius: 73px; opacity: 0.9;" src="./assets/shop.png"/>
+			<div class="groupBuy">
+				<div id="buyA" onClick="buyTap();">
+					100
+				</div>
+				<div id="buyB" onClick="buySec();">
+					100
+				</div>
+				<div id="buyC" onClick="buyManySec();">
+					100
+				</div>
+			</div>
+			<div id="buyD" onClick="buyD();">
+				100
+			</div>
+			<div id="buyE" onClick="buyE();">
+				100
+			</div>
+			<div id="buyF" onClick="buyF();">
+				100
+			</div>
+			<div id="buyG" onClick="buyG();">
+				(x100)
+			</div>
+		</div>
+		<div id="openlogout">
+			<div class="close" onClick='Aclosed="openlogout"; Aclose();'>
+				<img style="height: 100%; width: 100%; border-radius: 73px;" src="./assets/close.jpg"/>
+			</div>
+			<img style="height: 100%; width: 100%; border-radius: 73px;" src="./assets/shop.png"/>
+		</div>
+		
+		<div id="rightInfo">
+			<div id="username"></div>
+			<div id="tap"></div>
+			<div id="sec"></div>
+			
+		</div>
+		<div id="group">
+			<div id="clickShop" onClick="shop();">
+				<img style="height: 100%; width: 100%; border-radius: 50%;" src="./assets/a.png"/>
+			</div>
+			<div id="logout" onClick="logout();">
+				<img style="height: 100%; width: 100%; border-radius: 50%;" src="./assets/c.png"/>
+			</div>
+		</div>
+		
+	</div>
+	<script>
+		alert("Lock the phone orientation first");
+		var username;
+		var score;
+		var sec;
+		var tap;
+		var signup = 1;
+		var Aclosed;
+		//price
+		var ccount;
+		var ac;
+		var bc;
+		var cc;
+		var dc;
+		var ec;
+		var tapPrice = 20;
+		var secPrice;
+		var manysecPrice;
+		var buyd;
+		var buye;
+		var buyf;
+		//localStorage.clear();
+		rank();
+		function log(){
+			document.getElementById('button').className = 'block';
+			if(signup == 1) {
+				document.getElementById('button').className += ' right';
+				document.getElementById('block').style.justifyContent = 'left';
+				document.getElementById('tlog').className = 'tlog btext';
+				document.getElementById('tsign').className = 'tsign atext';
+				document.getElementById('titlelog').className = 'change';
+				setTimeout(()=>{
+					document.getElementById('titlelog').innerHTML = 'Log-in';
+				},250)
+				setTimeout(()=>{
+					document.getElementById('titlelog').className = 'none';
+				},500)
+				signup = 0;
+			} else {
+				document.getElementById('button').className += ' left';
+				document.getElementById('block').style.justifyContent = 'right';
+				document.getElementById('tlog').className = 'tlog atext';
+				document.getElementById('tsign').className = 'tsign btext';
+				document.getElementById('titlelog').className = 'change';
+				setTimeout(()=>{
+					document.getElementById('titlelog').innerHTML = 'Sign-up';
+				},250)
+				setTimeout(()=>{
+					document.getElementById('titlelog').className = 'none';
+				},500)
+				signup = 1;
+			}
+		}
+		function submit() {
+			var a = (document.getElementById('n').value).toString();
+			var b = (document.getElementById('p').value).toString();
+			if(signup==1){
+				if(localStorage.getItem(a)==null){
+					if(a.indexOf(' ') >= 0 || b.indexOf(' ') >= 0) {
+						alert("Empty or Space are not allowed.");
+					} else if(a.length > 11) {
+						alert("Username should be less than 12 characters");
+					} else if(b.length < 3) {
+						alert("Password should be greater than 2 characters");
+					} else {
+						var list = localStorage.getItem('ulist');
+						if (list == null) {
+							localStorage.setItem('ulist', a);
+						} else {
+							localStorage.setItem('ulist', list+" "+a);
+						}
+						
+						localStorage.setItem(a, b);
+						localStorage.setItem(a+"score", 0);
+						localStorage.setItem(a+"sec", 1);
+						localStorage.setItem(a+"tap", 1);
+						localStorage.setItem(a+"ccount", 0);
+						localStorage.setItem(a+"ac", 0);
+						localStorage.setItem(a+"bc", 0);
+						localStorage.setItem(a+"cc", 0);
+						localStorage.setItem(a+"dc", 0);
+						localStorage.setItem(a+"ec", 0);
+						username = a;
+						start();
+					}
+				} else {
+					alert("Username have already been taken. Please change username.");
+				}
+			} else {
+				if(localStorage.getItem(a)==(b)) {
+					username = a;
+					start();
+				} else {
+					alert("Incorrect username or password.")
+				}
+			}
+		}
+		function rank() {
+			var rlist = localStorage.getItem('ulist');
+			rlist = rlist.split(" ");
+			var score = [];
+			for(let i=0; i<rlist.length; i++) {
+				score[i] = localStorage.getItem(rlist[i]+"score") + i/100;
+				localStorage.setItem(score[i],rlist[i]);
+			}
+			score.sort(function(a,b){
+				return b-a;
+			});
+			for(let i=0; i<rlist.length; i++) {
+				document.getElementById('name'+i).innerHTML = localStorage.getItem(score[i]);
+				document.getElementById('score'+i).innerHTML = converter(Math.round(score[i])/10);
+			}
+			
+			//coins = localStorage.getItem(username+"score");
+			//all stored in ulist
+		}
+		function ctap() {
+			score = parseInt(score) + parseInt(tap);
+			localStorage.setItem(username+"score", score);
+			document.getElementById('scoreNum').innerHTML = converter(score);
+			document.getElementById('chest').className += ' chest';
+			setTimeout(()=>{
+				document.getElementById('chest').className = 'bluechest';
+			},37);
+		}
+		function setInfo() {
+			document.getElementById('username').innerHTML = username;
+			document.getElementById('scoreNum').innerHTML = converter(score);
+			document.getElementById('sec').innerHTML = converter(sec);
+			document.getElementById('tap').innerHTML = converter(tap);
+		}
+		function start() {
+			score = localStorage.getItem(username+"score");
+			sec = localStorage.getItem(username+"sec");
+			setInterval(() => {
+				if(score < 1000000000000000000000) {
+					score = parseInt(score)+parseInt(sec);
+					localStorage.setItem(username+"score", score);
+					document.getElementById('scoreNum').innerHTML = converter(score);
+				}
+				
+			}, 1000);
+			tap = localStorage.getItem(username+"tap");
+			ccount = localStorage.getItem(username+"ccount");
+			ac = localStorage.getItem(username+"ac");
+			bc = localStorage.getItem(username+"bc");
+			cc = localStorage.getItem(username+"cc");
+			dc = localStorage.getItem(username+"dc");
+			ec = localStorage.getItem(username+"ec");
+			setInfo();
+			setTimeout(()=>{
+				document.getElementById("game").style.display = 'flex';
+				document.getElementById("game").className = 'fadein';
+				document.getElementById("chest").style.display = 'block';
+				document.getElementById("chest").className += ' fadein';
+				document.getElementById("score").style.display = 'flex';
+				document.getElementById("score").className += ' fadein';
+				document.getElementById("group").style.display = 'block';
+				document.getElementById("group").className += ' fadein';
+				document.getElementById("rightInfo").style.display = 'flex';
+				document.getElementById("username").className += ' fadein';
+			}, 37);
+			document.getElementById('firstpage').className += ' fadeout';
+			setTimeout(()=>{
+				document.getElementById('chest').style.position = 'fixed';
+				document.getElementById('firstpage').style.display = 'none';
+			}, 1000);
+			document.addEventListener('keyup', event => {
+				if (event.code === 'Space'){
+					score = parseInt(score) + parseInt(tap);
+					localStorage.setItem(username+"score", score);
+					document.getElementById('scoreNum').innerHTML = converter(score);
+					document.getElementById('chest').className += ' chest';
+					setTimeout(()=>{
+						document.getElementById('chest').className = 'bluechest';
+					},137);
+				}
+			});
+			setPrice();
+			setFish();
+		}
+		function Aclose() {
+			document.getElementById(Aclosed).className = 'fadeout';
+			setTimeout(()=>{
+				document.getElementById(Aclosed).style.display = 'none';
+			}, 173);
+		}
+		function shop() {
+			setTimeout(()=>{
+				document.getElementById("shop").style.display = 'flex';
+				document.getElementById("shop").className += ' fadein';
+			}, 37);
+		}
+		function logout() {
+			location.reload();
+		}
+		function attack() {
+			setTimeout(()=>{
+				document.getElementById("openattack").style.display = 'block';
+				document.getElementById("openattack").className += ' fadein';
+			}, 37);
+		}
+		var fish = 0;
+		function setFish() {		
+			for(let i=0; i<Math.floor(((parseInt(sec))/1)%10); i++) {
+				randomMove("fish"+i, 0);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/10)%10); i++) {
+				randomMove("afish"+i, 1);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/100)%10); i++) {
+				randomMove("bfish"+i, 2);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/1000)%10); i++) {
+				randomMove("cfish"+i, 3);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/10000)%10); i++) {
+				randomMove("dfish"+i, 4);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/100000)%10); i++) {
+				randomMove("efish"+i, 5);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/1000000)%10); i++) {
+				randomMove("ffish"+i, 6);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/10000000)%10); i++) {
+				randomMove("gfish"+i, 7);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/100000000)%10); i++) {
+				randomMove("hfish"+i, 8);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/1000000000)%10); i++) {
+				randomMove("ifish"+i, 9);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/10000000000)%10); i++) {
+				randomMove("jfish"+i, 10);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/100000000000)%10); i++) {
+				randomMove("kfish"+i, 11);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/1000000000000)%10); i++) {
+				randomMove("lfish"+i, 12);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/10000000000000)%10); i++) {
+				randomMove("mfish"+i, 13);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/100000000000000)%10); i++) {
+				randomMove("nfish"+i, 14);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/1000000000000000)%10); i++) {
+				randomMove("ofish"+i, 15);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/10000000000000000)%10); i++) {
+				randomMove("pfish"+i, 16);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/100000000000000000)%10); i++) {
+				randomMove("qfish"+i, 17);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/1000000000000000000)%10); i++) {
+				randomMove("rfish"+i, 18);
+			}
+			for(let i=0; i<Math.floor(((parseInt(sec))/10000000000000000000.0)); i++) {
+				randomMove("sfish"+i, 73);
+			}
+			
+		}
+		function randomMove(theFish, i) {
+			if(document.getElementById(theFish) != null) {
+				
+			} else {
+			let positionX = Math.random()*98.0;
+			let positionY = Math.random()*91.0;
+			document.getElementById("game").innerHTML += 
+			'<div class="fishBlock" id="'+theFish+'">' +
+				'<img src="./assets/'+i+'.jpg" id="fishImg"/>' +
+				'<div class="text" style="bottom: -1%;">' +
+					'<h5>'+'+'+converter((Math.pow(10, parseInt(i))))+'/sec'+'</h5>' +
+				'</div>' +
+			'</div>';
+			document.getElementById(theFish).style.height = (i*3+37)+'px';
+			document.getElementById(theFish).style.width = (i*3+37)+'px';
+			document.getElementById(theFish).style.display = 'block';
+			document.getElementById(theFish).className += ' fadein';
+			let x;
+			let y;
+			x = Math.round(Math.random());
+			y = Math.round(Math.random());
+			setInterval(()=>{
+				x = Math.round(Math.random());
+				y = Math.round(Math.random());
+			}, 2737)
+			setInterval(()=>{
+				
+				if((y==1 && positionY < 91) || positionY < -5){
+					positionY += 0.1;
+				} else {
+					positionY -= 0.1;
+				}
+				if((x==1 && positionX < 98) || positionX < -5){
+					positionX += 0.1;
+				} else {
+					positionX -= 0.1;
+				}
+				document.getElementById(theFish).style.top = positionY+"%";
+				document.getElementById(theFish).style.left = positionX+"%";
+			}, 11);	
+			}
+			
+		}
+		
+		function setPrice() {
+			tapPrice = 48*Math.pow(2.02,ccount);
+			secPrice = 100+parseInt(ac)*7/1;
+			manysecPrice = 3377+parseInt(bc)*7*37/1.3;
+			buyd = 300000+parseInt(cc)*7*3700/1.7;
+			buye = 10000000+parseInt(dc)*7*373000/2.3;
+			buyf = 10000000000000+parseInt(ec)*7*1000000000000/2.7;
+			document.getElementById('buyA').innerHTML = converter(tapPrice) + " (" + ccount + ")";
+			document.getElementById('buyB').innerHTML = converter(secPrice) + " (" + ac + ")";
+			document.getElementById('buyC').innerHTML = converter(manysecPrice) + " (" + bc + ")";
+			document.getElementById('buyD').innerHTML = converter(buyd) + " (" + cc + ")";
+			document.getElementById('buyE').innerHTML = converter(buye) + " (" + dc + ")";
+			document.getElementById('buyF').innerHTML = converter(buyf) + " (" + ec + ")";
+			document.getElementById('buyG').innerHTML = converter(parseInt(buyf)*100) + "(x100)";
+			setInfo();
+		}
+		function buyTap() {
+			if (parseInt(score) >= tapPrice) {
+				ccount++;
+				localStorage.setItem(username+"ccount", ccount);
+				score = parseInt(score) - tapPrice;
+				tap = parseInt(tap)*2;
+				localStorage.setItem(username+"tap", tap);
+				
+			} else {
+				alert("Not enough money.");			
+			}
+			setPrice();
+		}
+		function buySec() {
+			if (parseInt(score) >= secPrice) {
+				ac++;
+				localStorage.setItem(username+"ac", ac);
+				score = parseInt(score) - secPrice;
+				sec = parseInt(sec) + 1;
+				localStorage.setItem(username+"sec", sec);	
+			} else {
+				alert("Not enough money.");			
+			}
+			setPrice();
+			setFish();
+		}
+		function buyManySec() {
+			if (parseInt(score) >= manysecPrice) {
+				bc++;
+				localStorage.setItem(username+"bc", bc);
+				score = parseInt(score) - manysecPrice;
+				sec = parseInt(sec) + 37;
+				localStorage.setItem(username+"sec", sec);	
+			} else {
+				alert("Not enough money.");			
+			}
+			setPrice();
+			setFish();
+		}
+		function buyD() {
+			if (parseInt(score) >= buyd) {
+				cc++;
+				localStorage.setItem(username+"cc", cc);
+				score = parseInt(score) - buyd;
+				sec = parseInt(sec) + 3700;
+				localStorage.setItem(username+"sec", sec);	
+			} else {
+				alert("Not enough money.");			
+			}
+			setPrice();
+			setFish();
+		}
+		function buyE() {
+			if (parseInt(score) >= buye) {
+				dc++;
+				localStorage.setItem(username+"dc", dc);
+				score = parseInt(score) - buye;
+				sec = parseInt(sec) + 373000;
+				localStorage.setItem(username+"sec", sec);	
+			} else {
+				alert("Not enough money.");			
+			}
+			setPrice();
+			setFish();
+		}
+		function buyF() {
+			if (parseInt(score) >= buyf) {
+				ec++;
+				localStorage.setItem(username+"ec", ec);
+				score = parseInt(score) - buyf;
+				sec = parseInt(sec) + 7000000000000;
+				localStorage.setItem(username+"sec", sec);	
+			} else {
+				alert("Not enough money.");			
+			}
+			setPrice();
+			setFish();
+		}
+		function buyG() {
+			if (parseInt(score) >= buyf*100) {
+				ec=parseInt(ec)+100;
+				localStorage.setItem(username+"ec", ec);
+				score = parseInt(score) - buyf*100;
+				sec = parseInt(sec) + 700000000000000;
+				localStorage.setItem(username+"sec", sec);	
+			} else {
+				alert("Not enough money.");
+			}
+			setPrice();
+			setFish();
+		}
+		function converter(num) {
+			if ((num+"a").includes("+")) {
+				return "Max Limit";
+			} else if (parseInt(num)/1000000000000000000 >= 1) {
+				return (Math.round((parseInt(num)/1000000000000000000)*100)/100).toFixed(2) + "Q";
+			} else if (parseInt(num)/1000000000000000 >= 1) {
+				return (Math.round((parseInt(num)/1000000000000000)*100)/100).toFixed(2) + "q";
+			} else if (parseInt(num)/1000000000000 >= 1) {
+				return (Math.round((parseInt(num)/1000000000000)*100)/100).toFixed(2) + "t";
+			} else if (parseInt(num)/1000000000 >= 1) {
+				return (Math.round((parseInt(num)/1000000000)*100)/100).toFixed(2) + "B";
+			} else if (parseInt(num)/1000000 >= 1) {
+				return (Math.round((parseInt(num)/1000000)*100)/100).toFixed(2) + "M";
+			} else if (parseInt(num)/1000 >= 1){
+				return (Math.round((parseInt(num)/1000)*100)/100).toFixed(2) + "K";
+			} else {
+				return (Math.round((parseInt(num))*100)/100).toFixed(2);
+			}
+		} 
+	</script>
+</body>
+</html>

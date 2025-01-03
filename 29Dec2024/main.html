@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="eng">
+	<head>
+		<title>
+			Chess
+		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				display: flex;
+				flex-flow: column nowrap;
+				background: rgb(73, 73, 73);
+				margin: 0;
+				padding: 0;
+				border: 0;
+				
+			}
+			header {
+				background: rgb(73, 73, 73);
+				height: 23%;
+				width: 100%;
+				display: flex;
+				flex-flow: column nowrap;
+			}
+			main {
+				display: flex;
+				flex-flow: row nowrap;
+				flex: 1;
+				width: 100%;
+				background: rgb(73, 73, 73);
+			}
+			footer {
+				display: flex;
+				flex-flow: column nowrap;
+				background: rgb(73, 73, 73);
+				height: 23%;
+				width: 100%;
+				padding-bottom: 7px;
+			}
+			pre {
+				font-size: 37px;
+			}
+			.space {
+				width: 30%;
+				height: 100%;
+				background: rgb(73, 73, 73);
+			}
+			.board {
+				display: flex;
+				flex-flow: column nowrap;
+				flex: 1;
+			}
+			.board img {
+				border-radius: 50%;
+			}
+			.row {
+				flex: 1;
+				background: rgb(73, 73, 73);
+				/*height: 12px;
+				width: 100%;*/
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: center;
+				align-items: center;
+				margin: 0;
+				padding: 0;
+			}
+			.column {
+				flex: 1;
+				/*height: 26px;
+				width: 26px;*/
+				background: orange;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			p {
+				display: flex;
+				flex-flow: row;
+				text-align: center;
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				justify-content: center;
+				align-items: center;
+				text-align: center;			
+				color: white;
+			}
+			img {
+				height: 100%;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                width: 100%;
+			}
+			.i {
+				display: none;
+				position: absolute;
+				z-index: 1;
+				text-align: center;
+				height: 100%;
+				width: 100%;
+				
+				margin: 0;
+				padding: 0;
+				border: 0;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				
+				background: rgba(73,73,73,0.5);
+				
+			}
+			.white {
+				flex: 1;
+				
+				/*height: 100%;
+				width: 100%;*/
+				background: gray;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			.black {
+				flex: 1;
+				/*height: 100%;
+				width: 100%;*/
+				background: rgb(111, 111, 111);
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			.piece {
+				position: absolute;				
+				text-align: center;
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				justify-content: center;
+				align-items: center;
+				text-align: center;			
+				z-index: 4;
+				opacity: 0.7;
+				background: red;
+			}
+			#who {
+				font-size: 13px;
+				color: white;
+				display: block;
+				text-align: center;
+				margin: 0;
+				padding: auto;
+			}
+			div {
+				color: white;
+				
+			}
+			.top {
+				display: flex;
+				flex-flow: row nowrap;
+				background: rgb(137,137,137);
+				height: 53px;
+				justify-content: center;
+				items-align: center;
+				position: relative;
+			}
+			a {
+				display: block;
+				text-decoration: none;
+				margin: 0;
+				height: 100%;
+				flex: 2;
+				justify-content: center;
+				items-align: center;
+				padding-top: 17px;
+				border: 0;
+				text-align: center;
+				color: white;
+			}
+			.top2 {
+				display: flex;
+				flex-flow: row nowrap;
+				background: rgb(73,73,73);
+				flex: 1;
+				padding: 20px 7px;
+				justify-content: center;
+				items-align: center;
+				position: relative;
+				height: 16vw;
+			}			
+			#startmid {
+				display: flex;
+				flex-flow: column nowrap;
+				position: fixed;				
+				width: 100%;
+				background: black;
+				z-index: 6;
+				justify-content: center;
+				items-align: center;
+				padding: 0;
+				margin: 0;
+			}
+			#startmid button {
+				height: 48px;
+				width: 73%;
+			    margin: auto;
+			
+			}
+			
+			#startmid {
+				flex: 1;
+			}
+			#starttop {
+			    height: 37%;
+			    width: 100%;
+			}
+			#starttop p {
+				display: inline-block;
+				flex-flow: row;
+				text-align: center;
+				height: 10px;
+				width: 13px;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				justify-content: center;
+				align-items: center;
+				text-align: center;			
+				color: white;
+			    z-index: 5;
+			}
+			#spaceimg {
+				visibility: hidden;
+			}
+			.profile {
+				flex: 1;
+				flex-flow: column nowrap;
+				padding: 7px;
+				justify-content: left;
+				display: flex;
+			}
+			.profile div {
+				font-size: 13px;
+				
+			}
+			.time {
+				background: rgba(37,37,37,0.7);
+				border-radius: 7vw;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				padding: 0;
+				margin: 0;
+				padding: 13px 17px;
+				color: white;
+				height: 13vw
+			}
+			.tools {
+				display: none;
+				flex-flow: row nowrap;
+				background: rgb(137,137,137);
+				margin: 0;
+				
+				text-align: center;
+				padding-bottom: 94px;
+				height: 73px;
+				width: 100%;
+				justify-content: center;
+				align-items: center;
+			}
+			.tools p {
+				font-size: 13px;
+			}
+			.back, .forward {
+				flex: 1;
+				display: flex;
+				flex-flow: column;
+				margin: 0;
+				padding: 0 7px;
+			}
+			.chat {
+				padding-top: 7px;
+				justify-content: center;
+				align-items: center;
+				margin: 0;
+				padding: 0;
+			}
+			.chat input {
+				border: 0;
+				padding: 0;
+				border-radius: 3px;
+				height: 26px;
+			}
+			.whomove {
+				height: 33px;
+				width: 73%;
+				padding-top: 6px;;
+			}
+			.interact {
+				display: flex;
+				flex-flow: row nowrap;
+				background: rgb(137,137,137);
+				padding: 0px 7px;
+				justify-content: left;
+				align-items: center;
+				position: relative;
+			}
+			.interact textarea {
+				flex: 1;
+				border-radius: 7px;
+				height: 33px;
+				margin-bottom: 13px;
+				margin-top: 13px;
+				padding: 0;
+			}
+			.interact img {
+				margin: 2px;
+                padding: 0;
+                height: 27px;
+                width: 27px;
+                
+                
+			}
+			#send {
+				position: absolute;
+				right: 21%;
+				border-radius: 4px;
+			}
+			.play {
+				width: 100%;
+				height: 81%;
+				padding-top: 0;
+				float: top;
+			}
+			#start{
+				display: flex;
+				flex-flow: column nowrap;
+				position: fixed;
+				height: 100%;
+				width: 100%;
+				background: black;
+				z-index: 6;
+				justify-content: top;
+				items-align: center;
+				padding: 0;
+				margin: 0;
+			}
+			#start button {
+				background: rgb(237,237,237);
+				height: 73px;
+			}
+			#start button:hover {
+				background: rgb(37,200,37);
+			}
+			#start p {
+				height: 37px;
+				margin: 17px auto;
+			}
+			#start h1 {
+				flex: 1;
+				padding: 0px;
+				margin: auto;
+				margin-top: 62px;
+				font-size: 13px;
+			}
+			#start div {
+				background: rgb(237,237,237);
+				height: 73px;
+				justify-content: center;
+				align-items: center;
+				color: black;
+				text-align: center;
+				padding-top: 26px;
+				font-size: 17px;
+			}
+			.top a {
+				display: flex;
+				margin: 0;
+				padding: 0;
+				opacity: 1;
+				
+			}
+			.top a {
+				display: flex;
+				margin: 0;
+				padding: 0;
+				opacity: 1;
+			}
+			.top img:hover {
+				background: rgb(111,111,111);
+			}
+			#start {
+				background: #737373;
+			}
+			#start img {
+				width: 100%;
+				margin: auto;
+				height: 84%;
+			}
+			#start button {
+				width: 95vw;
+				margin: auto;
+				border-radius: 11vw;
+				border: none;
+				background: white;
+				margin-top: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div id="start">
+				<h2 style="opacity: 1; position: absolute; align-text: center; color: black; width: 73%; padding: 3vw; -webkit-text-stroke: 1px #7337ff; /* width and color */ font-family: sans; font-size: 13vw;">Will rarely play chess. So I created this AI version of myself you can play. </h2>
+				
+				<img style="opacity: 1" src='c.png'/>
+				<button onClick='start();'>
+					Two Player
+				</button>
+				<button onClick='blackbot(); board(); setTimeout(function(){firstmove();}, 373);'>
+					You(White) vs MoriAI 
+				</button>
+				<button onClick='whitebot(); board(); setTimeout(function(){firstmove();}, 373);'>
+					You(Black) vs MoriAI 
+				</button>
+			</div>
+			
+            
+			<div class="top2">
+			    <img style="border-radius: 7px; height: 48px; width: 48px; margin-top: 3px; margin-left: 7px;" src="mori.png" />
+				<div class="profile">
+					<div> <span style="color: red;"> AI </span> Mori <img style=" position: absolute; height: 13px; width: 23px; margin: 0; margin-top: 0; margin-left: 4px;" src='ph.webp'/> </div>
+                    <div> Ratings: 2073 </div>
+                </div>
+				<div class="time">No Time</div>
+			</div>
+		</header>
+		<main>
+			<div class="board">
+				<div class="row">
+					<div class="white">
+						<p class="i" id="i0" onclick=" row=1; column=1; change(); "></p>
+						<p id="0" onclick="move0();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i1" onclick=" row=1; column=2; change(); "></p>
+						<p id="1" onclick="move1();"></p>
+					</div>
+					<div class="white" >
+						<p class="i" id="i2" onclick=" row=1; column=3; change(); "></p>
+						<p id="2" onclick="move2();"></p>						
+					</div>
+					<div class="black">
+						<p class="i" id="i3" onclick=" row=1; column=4; change(); "></p>
+						<p id="3" onclick="move3();"></p>						
+					</div>
+					<div class="white">
+						<p class="i" id="i4" onclick=" row=1; column=5; change(); "></p>
+						<p id="4" onclick="move4();"></p>						
+					</div>
+					<div class="black">
+						<p class="i" id="i5" onclick=" row=1; column=6; change(); "></p>
+						<p id="5" onclick="move5();"></p>						
+					</div>
+					<div class="white">
+						<p class="i" id="i6" onclick=" row=1; column=7; change(); "></p>
+						<p id="6" onclick="move6();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i7" onclick=" row=1; column=8; change(); "></p>
+						<p id="7" onclick="move7();"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="black">
+						<p class="i" id="i8" onclick=" row=2; column=1; change(); "></p>
+						<p id="8" onclick="move8();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i9" onclick=" row=2; column=2; change(); "></p>
+						<p id="9" onclick="move9();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i10" onclick=" row=2; column=3; change(); "></p>
+						<p id="10" onclick="move10();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i11" onclick=" row=2; column=4; change(); "></p>
+						<p id="11" onclick="move11();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i12" onclick=" row=2; column=5; change(); "></p>
+						<p id="12" onclick="move12();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i13" onclick=" row=2; column=6; change(); "></p>
+						<p id="13" onclick="move13();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i14" onclick=" row=2; column=7; change(); "></p>
+						<p id="14" onclick="move14();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i15" onclick=" row=2; column=8; change(); "></p>
+						<p id="15" onclick="move15();"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="white">
+						<p class="i" id="i16" onclick=" row=3; column=1; change(); "></p>
+						<p id="16" onclick="move16();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i17" onclick=" row=3; column=2; change(); "></p>
+						<p id="17" onclick="move17();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i18" onclick=" row=3; column=3; change(); "></p>
+						<p id="18" onclick="move18();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i19" onclick=" row=3; column=4; change(); "></p>
+						<p id="19" onclick="move19();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i20" onclick=" row=3; column=5; change(); "></p>
+						<p id="20" onclick="move20();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i21" onclick=" row=3; column=6; change(); "></p>
+						<p id="21" onclick="move21();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i22" onclick=" row=3; column=7; change(); "></p>
+						<p id="22" onclick="move22();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i23" onclick=" row=3; column=8; change(); "></p>
+						<p id="23" onclick="move23();"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="black">
+						<p class="i" id="i24" onclick=" row=4; column=1; change(); "></p>
+						<p id="24" onclick="move24();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i25" onclick=" row=4; column=2; change(); "></p>
+						<p id="25" onclick="move25();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i26" onclick=" row=4; column=3; change(); "></p>
+						<p id="26" onclick="move26();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i27" onclick=" row=4; column=4; change(); "></p>
+						<p id="27" onclick="move27();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i28" onclick=" row=4; column=5; change(); "></p>
+						<p id="28" onclick="move28();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i29" onclick=" row=4; column=6; change(); "></p>
+						<p id="29" onclick="move29();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i30" onclick=" row=4; column=7; change(); "></p>
+						<p id="30" onclick="move30();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i31" onclick=" row=4; column=8; change(); "></p>
+						<p id="31" onclick="move31();"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="white">
+						<p class="i" id="i32" onclick=" row=5; column=1; change(); "></p>
+						<p id="32" onclick="move32();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i33" onclick=" row=5; column=2; change(); "></p>
+						<p id="33" onclick="move33();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i34" onclick=" row=5; column=3; change(); "></p>
+						<p id="34" onclick="move34();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i35" onclick=" row=5; column=4; change(); "></p>
+						<p id="35" onclick="move35();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i36" onclick=" row=5; column=5; change(); "></p>
+						<p id="36" onclick="move36();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i37" onclick=" row=5; column=6; change(); "></p>
+						<p id="37" onclick="move37();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i38" onclick=" row=5; column=7; change(); "></p>
+						<p id="38" onclick="move38();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i39" onclick=" row=5; column=8; change(); "></p>
+						<p id="39" onclick="move39();"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="black">
+						<p class="i" id="i40" onclick=" row=6; column=1; change(); "></p>
+						<p id="40" onclick="move40();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i41" onclick=" row=6; column=2; change(); "></p>
+						<p id="41" onclick="move41();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i42" onclick=" row=6; column=3; change(); "></p>
+						<p id="42" onclick="move42();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i43" onclick=" row=6; column=4; change(); "></p>
+						<p id="43" onclick="move43();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i44" onclick=" row=6; column=5; change(); "></p>
+						<p id="44" onclick="move44();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i45" onclick=" row=6; column=6; change(); "></p>
+						<p id="45" onclick="move45();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i46" onclick=" row=6; column=7; change(); "></p>
+						<p id="46" onclick="move46();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i47" onclick=" row=6; column=8; change(); "></p>
+						<p id="47" onclick="move47();"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="white">
+						<p class="i" id="i48" onclick=" row=7; column=1; change(); "></p>
+						<p id="48" onclick="move48();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i49" onclick=" row=7; column=2; change(); "></p>
+						<p id="49" onclick="move49();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i50" onclick=" row=7; column=3; change(); "></p>
+						<p id="50" onclick="move50();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i51" onclick=" row=7; column=4; change(); "></p>
+						<p id="51" onclick="move51();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i52" onclick=" row=7; column=5; change(); "></p>
+						<p id="52" onclick="move52();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i53" onclick=" row=7; column=6; change(); "></p>
+						<p id="53" onclick="move53();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i54" onclick=" row=7; column=7; change(); "></p>
+						<p id="54" onclick="move54();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i55" onclick=" row=7; column=8; change(); "></p>
+						<p id="55" onclick="move55();"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="black">
+						<p class="i" id="i56" onclick=" row=8; column=1; change(); "></p>
+						<p id="56" onclick="move56();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i57" onclick=" row=8; column=2; change(); "></p>
+						<p id="57" onclick="move57();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i58" onclick=" row=8; column=3; change(); "></p>
+						<p id="58" onclick="move58();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i59" onclick=" row=8; column=4; change(); "></p>
+						<p id="59" onclick="move59();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i60" onclick=" row=8; column=5; change(); "></p>
+						<p id="60" onclick="move60();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i61" onclick=" row=8; column=6; change(); "></p>
+						<p id="61" onclick="move61();"></p>
+					</div>
+					<div class="black">
+						<p class="i" id="i62" onclick=" row=8; column=7; change(); "></p>
+						<p id="62" onclick="move62();"></p>
+					</div>
+					<div class="white">
+						<p class="i" id="i63" onclick=" row=8; column=8; change(); "></p>
+						<p id="63" onclick="move63();"></p>
+					</div>
+				</div>
+            </div>
+		</main>
+		<footer>
+			<div class="top2">
+			    <img style="border-radius: 7px; height: 48px; width: 48px; margin-top: 3px; margin-left: 7px;" src="cece.png" />
+				<div class="profile">
+					<div> <span style="color: yellow;"> </span> Ce <img style=" position: absolute; height: 13px; width: 23px; margin: 0; margin-top: 0; margin-left: 4px;" src='ph.webp'/> </div>
+                    <div> Ratings: ? </div>
+                </div>
+				<div class="time" onclick="chat();">No Time</div>
+			</div>
+			<div class="tools">
+				<div class="back">
+					<p> < </p>
+				    <p> Back </p>
+				</div>
+				<div style="position: relative;" class="whomove">
+				<p style="position: absolute; bottom: -73px; font-size: 17px; left: 7px;" id="who">.</p>
+				</div>
+				<div class="forward">
+					<p> > </p>
+				    <p> Forward </p>
+				</div>
+            </div>
+			
+		</footer>
+
+		<script>
+			 
+             var bot;
+             
+             
+              
+            function start() {        	
+                print();
+            }
+            
+            let color = 'white';
+            
+            var board;
+            function board() {
+            if (bot == 'black') {
+            board =
+            ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR',
+             'bpa', 'bpb', 'bpc', 'bpd', 'bpe', 'bpf', 'bpg', 'bph',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             'wpa', 'wpb', 'wpc', 'wpd', 'wpe', 'wpf', 'wpg', 'wph',
+             'wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR' ];
+             }
+            if (bot == 'white') {
+            board =
+            ['bR', 'bN', 'bB', 'bK', 'bQ', 'bB', 'bN', 'bR',
+             'bpa', 'bpb', 'bpc', 'bpd', 'bpe', 'bpf', 'bpg', 'bph',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             'wpa', 'wpb', 'wpc', 'wpd', 'wpe', 'wpf', 'wpg', 'wph',
+             'wR', 'wN', 'wB', 'wK', 'wQ', 'wB', 'wN', 'wR' ];
+             }
+             }
+             
+             function print() {
+             document.getElementById("start").style.display = 'none';
+             if (bot == 'black') {
+                 document.getElementById("who").innerHTML = color + " to move";
+             } else {
+                 document.getElementById("who").innerHTML = "black to move";
+                 document.getElementById("who").style.color = 'black';
+             } 
+             if (bot == 'black') {
+             if (color == 'white') {document.getElementById("who").style.color = 'white';}
+             else {document.getElementById("who").style.color = 'black';}
+             }
+             for (let i=0; i < 64; i++) {
+                      document.getElementById('i'+i).style.display = "none";
+                     /* if (board[0] == 'bR') {
+                      	document.getElementById('j'+i).style.background = "red";                      	
+                      } else {document.getElementById('j'+i).style.background = "none";}*/
+                  }
+
+             for (let i = 0; i < 64; i++) {
+             	document.getElementById(i).innerHTML = board[i];
+                 board[i] = document.getElementById(i).innerHTML;
+                 
+                 if (bot == 'black') {
+                 if (document.getElementById(i).innerHTML == 'wR') {
+                 	document.getElementById(i).innerHTML = '<img src="wR2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bR') {
+                 	document.getElementById(i).innerHTML = '<img src="bR2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wN') {
+                 	document.getElementById(i).innerHTML = '<img src="wN2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bN') {
+                 	document.getElementById(i).innerHTML = '<img src="bN2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wB') {
+                 	document.getElementById(i).innerHTML = '<img src="wB2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bB') {
+                 	document.getElementById(i).innerHTML = '<img src="bB2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wK') {
+                 	document.getElementById(i).innerHTML = '<img src="wK2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bK') {
+                 	document.getElementById(i).innerHTML = '<img src="bK2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wQ') {
+                 	document.getElementById(i).innerHTML = '<img src="wQ2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bQ') {
+                 	document.getElementById(i).innerHTML = '<img src="bQ2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wpa' ||
+                 document.getElementById(i).innerHTML == 'wpb' ||
+                 document.getElementById(i).innerHTML == 'wpc' ||
+                 document.getElementById(i).innerHTML == 'wpd' ||
+                 document.getElementById(i).innerHTML == 'wpe' ||
+                 document.getElementById(i).innerHTML == 'wpf' ||
+                 document.getElementById(i).innerHTML == 'wpg' ||
+                 document.getElementById(i).innerHTML == 'wph' ) {
+                 	document.getElementById(i).innerHTML = '<img src="wP2.png" />';                                  
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bpa' ||
+                 document.getElementById(i).innerHTML == 'bpb' ||
+                 document.getElementById(i).innerHTML == 'bpc' ||
+                 document.getElementById(i).innerHTML == 'bpd' ||
+                 document.getElementById(i).innerHTML == 'bpe' ||
+                 document.getElementById(i).innerHTML == 'bpf' ||
+                 document.getElementById(i).innerHTML == 'bpg' ||
+                 document.getElementById(i).innerHTML == 'bph' ) {
+                 	document.getElementById(i).innerHTML = '<img src="bP2.png" />';                                  
+                 }
+                 else {document.getElementById(i).innerHTML = '<img id="spaceimg" src="bP2.png"/>';}
+                 
+                 /*document.getElementById('j'+i).innerHTML = board[i];
+                 board[i] = document.getElementById('j'+i).innerHTML;*/
+              }
+              
+              if (bot == 'white') {
+                 if (document.getElementById(i).innerHTML == 'wR') {
+                 	document.getElementById(i).innerHTML = '<img src="bR2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bR') {
+                 	document.getElementById(i).innerHTML = '<img src="wR2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wN') {
+                 	document.getElementById(i).innerHTML = '<img src="bN2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bN') {
+                 	document.getElementById(i).innerHTML = '<img src="wN2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wB') {
+                 	document.getElementById(i).innerHTML = '<img src="bB2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bB') {
+                 	document.getElementById(i).innerHTML = '<img src="wB2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wK') {
+                 	document.getElementById(i).innerHTML = '<img src="bK2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bK') {
+                 	document.getElementById(i).innerHTML = '<img src="wK2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wQ') {
+                 	document.getElementById(i).innerHTML = '<img src="bQ2.png" />';                 
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bQ') {
+                 	document.getElementById(i).innerHTML = '<img src="wQ2.png" />';                 
+                 }
+                 
+                 else if (document.getElementById(i).innerHTML == 'wpa' ||
+                 document.getElementById(i).innerHTML == 'wpb' ||
+                 document.getElementById(i).innerHTML == 'wpc' ||
+                 document.getElementById(i).innerHTML == 'wpd' ||
+                 document.getElementById(i).innerHTML == 'wpe' ||
+                 document.getElementById(i).innerHTML == 'wpf' ||
+                 document.getElementById(i).innerHTML == 'wpg' ||
+                 document.getElementById(i).innerHTML == 'wph' ) {
+                 	document.getElementById(i).innerHTML = '<img src="bP2.png" />';                                  
+                 }
+                 else if (document.getElementById(i).innerHTML == 'bpa' ||
+                 document.getElementById(i).innerHTML == 'bpb' ||
+                 document.getElementById(i).innerHTML == 'bpc' ||
+                 document.getElementById(i).innerHTML == 'bpd' ||
+                 document.getElementById(i).innerHTML == 'bpe' ||
+                 document.getElementById(i).innerHTML == 'bpf' ||
+                 document.getElementById(i).innerHTML == 'bpg' ||
+                 document.getElementById(i).innerHTML == 'bph' ) {
+                 	document.getElementById(i).innerHTML = '<img src="wP2.png" />';                                  
+                 }
+                 else {document.getElementById(i).innerHTML = '<img id="spaceimg" src="wP2.png"/>';}
+                 
+                 /*document.getElementById('j'+i).innerHTML = board[i];
+                 board[i] = document.getElementById('j'+i).innerHTML;*/
+              }
+              }
+              
+              for (let i = 56; i < 64; i++) {
+              	if (board[i] == 'bpa' || board[i] == 'bpb' || board[i] == 'bpc' || board[i] == 'bpd' || board[i] == 'bpe' || board[i] == 'bpf' || board[i] == 'bpg' || board[i] == 'bph' ){
+              	    board[i] = 'bQ';
+                      document.getElementById(i).innerHTML = '<img src="bQ2.png" />';                                  
+                  }
+              }
+              for (let i = 0; i < 8; i++) {
+              	if (board[i] == 'wpa' || board[i] == 'wpb' || board[i] == 'wpc' || board[i] == 'wpd' || board[i] == 'wpe' || board[i] == 'wpf' || board[i] == 'wpg' || board[i] == 'wph' ){
+              	    board[i] = 'wQ';
+                      document.getElementById(i).innerHTML = '<img src="wQ2.png" />';                                  
+                  }
+              }
+              }
+              let num;
+              function move0() { num = 0; move();}
+              function move1() { num = 1; move();}
+              function move2() { num = 2; move();}
+              function move3() { num = 3; move();}
+              function move4() { num = 4; move();}
+              function move5() { num = 5; move();}
+              function move6() { num = 6; move();}
+              function move7() { num = 7; move();}
+              
+              function move8() { num = 8; move();}
+              function move9() { num = 9; move();}
+              function move10() { num = 10; move();}
+              function move11() { num = 11; move();}
+              function move12() { num = 12; move();}
+              function move13() { num = 13; move();}
+              function move14() { num = 14; move();}
+              function move15() { num = 15; move();}
+              
+              function move16() { num = 16; move();}
+              function move17() { num = 17; move();}
+              function move18() { num = 18; move();}
+              function move19() { num = 19; move();}
+              function move20() { num = 20; move();}
+              function move21() { num = 21; move();}
+              function move22() { num = 22; move();}
+              function move23() { num = 23; move();}
+              
+              function move24() { num = 24; move();}
+              function move25() { num = 25; move();}
+              function move26() { num = 26; move();}
+              function move27() { num = 27; move();}
+              function move28() { num = 28; move();}
+              function move29() { num = 29; move();}
+              function move30() { num = 30; move();}
+              function move31() { num = 31; move();}
+              
+              function move32() { num = 32; move();}
+              function move33() { num = 33; move();}
+              function move34() { num = 34; move();}
+              function move35() { num = 35; move();}
+              function move36() { num = 36; move();}
+              function move37() { num = 37; move();}
+              function move38() { num = 38; move();}
+              function move39() { num = 39; move();}
+              
+              function move40() { num = 40; move();}
+              function move41() { num = 41; move();}
+              function move42() { num = 42; move();}
+              function move43() { num = 43; move();}
+              function move44() { num = 44; move();}
+              function move45() { num = 45; move();}
+              function move46() { num = 46; move();}
+              function move47() { num = 47; move();}
+              
+              function move48() { num = 48; move();}
+              function move49() { num = 49; move();}
+              function move50() { num = 50; move();}
+              function move51() { num = 51; move();}
+              function move52() { num = 52; move();}
+              function move53() { num = 53; move();}
+              function move54() { num = 54; move();}
+              function move55() { num = 55; move();}
+              
+              function move56() { num = 56; move();}
+              function move57() { num = 57; move();}
+              function move58() { num = 58; move();}
+              function move59() { num = 59; move();}
+              function move60() { num = 60; move();}
+              function move61() { num = 61; move();}
+              function move62() { num = 62; move();}
+              function move63() { num = 63; move();}
+              let row;
+              let column;
+              let x;
+              function rowcolumn() {
+              	if (num == '0') { row = 1; column = 1; }
+                  if (num == '1') { row = 1; column = 2; }
+                  if (num == '2') { row = 1; column = 3; }
+                  if (num == '3') { row = 1; column = 4; }
+                  if (num == '4') { row = 1; column = 5; }
+                  if (num == '5') { row = 1; column = 6; }
+                  if (num == '6') { row = 1; column = 7; }
+                  if (num == '7') { row = 1; column = 8; }
+                  
+                  if (num == '8') { row = 2; column = 1; }
+                  if (num == '9') { row = 2; column = 2; }
+                  if (num == '10') { row = 2; column = 3; }
+                  if (num == '11') { row = 2; column = 4; }
+                  if (num == '12') { row = 2; column = 5; }
+                  if (num == '13') { row = 2; column = 6; }
+                  if (num == '14') { row = 2; column = 7; }
+                  if (num == '15') { row = 2; column = 8; }
+                  
+                  if (num == '16') { row = 3; column = 1; }
+                  if (num == '17') { row = 3; column = 2; }
+                  if (num == '18') { row = 3; column = 3; }
+                  if (num == '19') { row = 3; column = 4; }
+                  if (num == '20') { row = 3; column = 5; }
+                  if (num == '21') { row = 3; column = 6; }
+                  if (num == '22') { row = 3; column = 7; }
+                  if (num == '23') { row = 3; column = 8; }
+                  
+                  if (num == '24') { row = 4; column = 1; }
+                  if (num == '25') { row = 4; column = 2; }
+                  if (num == '26') { row = 4; column = 3; }
+                  if (num == '27') { row = 4; column = 4; }
+                  if (num == '28') { row = 4; column = 5; }
+                  if (num == '29') { row = 4; column = 6; }
+                  if (num == '30') { row = 4; column = 7; }
+                  if (num == '31') { row = 4; column = 8; }
+                  
+                  if (num == '32') { row = 5; column = 1; }
+                  if (num == '33') { row = 5; column = 2; }
+                  if (num == '34') { row = 5; column = 3; }
+                  if (num == '35') { row = 5; column = 4; }
+                  if (num == '36') { row = 5; column = 5; }
+                  if (num == '37') { row = 5; column = 6; }
+                  if (num == '38') { row = 5; column = 7; }
+                  if (num == '39') { row = 5; column = 8; }
+                  
+                  if (num == '40') { row = 6; column = 1; }
+                  if (num == '41') { row = 6; column = 2; }
+                  if (num == '42') { row = 6; column = 3; }
+                  if (num == '43') { row = 6; column = 4; }
+                  if (num == '44') { row = 6; column = 5; }
+                  if (num == '45') { row = 6; column = 6; }
+                  if (num == '46') { row = 6; column = 7; }
+                  if (num == '47') { row = 6; column = 8; }
+                  
+                  if (num == '48') { row = 7; column = 1; }
+                  if (num == '49') { row = 7; column = 2; }
+                  if (num == '50') { row = 7; column = 3; }
+                  if (num == '51') { row = 7; column = 4; }
+                  if (num == '52') { row = 7; column = 5; }
+                  if (num == '53') { row = 7; column = 6; }
+                  if (num == '54') { row = 7; column = 7; }
+                  if (num == '55') { row = 7; column = 8; }
+                  
+                  if (num == '56') { row = 8; column = 1; }
+                  if (num == '57') { row = 8; column = 2; }
+                  if (num == '58') { row = 8; column = 3; }
+                  if (num == '59') { row = 8; column = 4; }
+                  if (num == '60') { row = 8; column = 5; }
+                  if (num == '61') { row = 8; column = 6; }
+                  if (num == '62') { row = 8; column = 7; }
+                  if (num == '63') { row = 8; column = 8; }
+              }
+              function convert(row, column) {
+              	x = ((row-1)*8)+column-1;
+                  return x;
+              }
+              function converta(row, column) {
+              	let abc = ((row-1)*8)+column-1;
+                  return abc;
+              }
+              function move() {
+              	for (let i=0; i < 64; i++) {
+                      document.getElementById('i'+i).style.display = "none";
+                  }
+              	rowcolumn();
+              	//pawn
+                  if ( color == 'black' && (
+                  (board[num] == 'bpa') || (board[num] == 'bpb') || (board[num] == 'bpc') || (board[num] == 'bpd') || (board[num] == 'bpe') || (board[num] == 'bpf') || (board[num] == 'bpg') || (board[num] == 'bph') )
+                  ) {
+              	    bpawnmove();
+              	}
+                  if ( color == 'white' && (
+                  (board[num] == 'wpa') || (board[num] == 'wpb') || (board[num] == 'wpc') || (board[num] == 'wpd') || (board[num] == 'wpe') || (board[num] == 'wpf') || (board[num] == 'wpg') || (board[num] == 'wph') )
+                  ) {
+              	    wpawnmove();
+              	}
+              
+                  //rook
+                  if ( color == 'black' && (
+                  (board[num] == 'bR') )
+                  ) {
+              	    rookmove();
+              	}
+                  if ( color == 'white' && (
+                  (board[num] == 'wR') )
+                  ) {
+              	    rookmove();
+              	}
+                  
+                  //knight
+                  if ( color == 'black' && (
+                  (board[num] == 'bN') )
+                  ) {
+              	    knightmove();
+              	}
+                  if ( color == 'white' && (
+                  (board[num] == 'wN') )
+                  ) {
+              	    knightmove();
+              	}
+              
+                  //bishop
+                  if ( color == 'black' && (
+                  (board[num] == 'bB') )
+                  ) {
+              	    bishopmove();
+              	}
+                  if ( color == 'white' && (
+                  (board[num] == 'wB') )
+                  ) {
+              	    bishopmove();
+              	}
+              
+                  //king
+                  if ( color == 'black' && (
+                  (board[num] == 'bK') )
+                  ) {
+              	    kingmove();
+              	}
+                  if ( color == 'white' && (
+                  (board[num] == 'wK') )
+                  ) {
+              	    kingmove();
+              	}
+              
+                  //queen
+                  if ( color == 'black' && (
+                  (board[num] == 'bQ') )
+                  ) {
+              	    queenmove();
+              	}
+                  if ( color == 'white' && (
+                  (board[num] == 'wQ') )
+                  ) {
+              	    queenmove();
+              	}
+              }
+              
+              
+              
+              //Moves
+              function wpawnmove() {
+              	convert(7, column);
+              	if ( ((board[x] == 'wpa') || (board[x] == 'wpb') || (board[x] == 'wpc') || (board[x] == 'wpd') || (board[x] == 'wpe') || (board[x] == 'wpf') || (board[x] == 'wpg') || (board[x] == 'wph')) && board[x-8] == ' ') {
+              	    convert(5, column);
+              	    document.getElementById('i'+x).style.display = "block";
+ 	             }
+                  convert(row-1, column);
+                  if (board[x] == ' ') {
+              	    document.getElementById('i'+x).style.display = "block";
+ 	             }
+                  if (convert(row, column) != convert(row, 8)) {convert(row-1, column+1)}
+                  if (board[x] != ' ' && board[x] != 'wR' && board[x] != 'wN' && board[x] != 'wB' && board[x] != 'wQ' && board[x] != 'wK' && board[x] != 'wpa' && board[x] != 'wpb' && board[x] != 'wpc' && board[x] != 'wpd' && board[x] != 'wpe' && board[x] != 'wpf' && board[x] != 'wpg' && board[x] != 'wph' ) {
+                  	document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row-1, column-1);
+                  if (board[x] != ' ' && board[x] != 'wR' && board[x] != 'wN' && board[x] != 'wB' && board[x] != 'wQ' && board[x] != 'wK' && board[x] != 'wpa' && board[x] != 'wpb' && board[x] != 'wpc' && board[x] != 'wpd' && board[x] != 'wpe' && board[x] != 'wpf' && board[x] != 'wpg' && board[x] != 'wph' ) {
+                  	document.getElementById('i'+x).style.display = "block";
+                  }
+              }
+              function bpawnmove() {
+              	convert(2, column);
+              	if (board[x] != ' ') {
+              	    convert(4, column);
+              	    document.getElementById('i'+x).style.display = "block";
+ 	             }
+                  convert(row+1, column);
+                  if (board[x] == ' ') {
+              	    document.getElementById('i'+x).style.display = "block";
+ 	             }
+                  if (convert(row, column) != convert(row, 1)) {convert(row+1, column-1)}
+                  if (board[x] != ' ' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bK' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' ) {
+                  	document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row+1, column+1);
+                  if (board[x] != ' ' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bK' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' ) {
+                  	document.getElementById('i'+x).style.display = "block";
+                  }
+              }
+              function knightmove() {
+              	if (color=='white'){
+              	if ((row+2 <= 8)&&(column+1<= 8)) {
+              	convert(row+2, column+1);                 
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((row+2 <= 8)&&(1 <= column-1)) {
+                  convert(row+2, column-1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-2)&&(column+1 <= 8)) {
+                  convert(row-2, column+1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-2)&&(1 <= column-1)) {
+                  convert(row-2, column-1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }                  
+                  if ((row+1 <= 8)&&(column+2 <=8)) {
+                  convert(row+1, column+2);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-1)&&(column+2 <=8)) {
+                  convert(row-1, column+2);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((row+1 <= 8)&&(1 <= column-2)) {
+                  convert(row+1, column-2);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-1)&&(1 <= column-2)) {
+                  convert(row-1, column-2);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  } 
+                  }
+                  else {
+              	if ((row+2 <= 8)&&(column+1<= 8)) {
+              	convert(row+2, column+1);                 
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((row+2 <= 8)&&(1 <= column-1)) {
+                  convert(row+2, column-1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-2)&&(column+1 <= 8)) {
+                  convert(row-2, column+1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == ' wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == ' wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-2)&&(1 <= column-1)) {
+                  convert(row-2, column-1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == ' wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == ' wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }                  
+                  if ((row+1 <= 8)&&(column+2 <=8)) {
+                  convert(row+1, column+2);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-1)&&(column+2 <=8)) {
+                  convert(row-1, column+2);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((row+1 <= 8)&&(1 <= column-2)) {
+                  convert(row+1, column-2);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }
+                  if ((1 <= row-1)&&(1 <= column-2)) {
+                  convert(row-1, column-2);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == ' wpg' || board[x] == 'wph' ) { 
+                  document.getElementById('i'+x).style.display = "block";
+                  }
+                  }                                    
+                  }
+              }
+              function rookmove() {
+              	if (color=='white') {
+              	    for (let i= 1; i <=8; i++){
+              	        if (column+i <= 8) {
+                              convert(row, column+i);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (column-i >= 1) {
+                              convert(row, column-i);                              
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row+i <= 8) {
+                              convert(row+i, column);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1) {
+                              convert(row-i, column);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              } 
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }                                           
+              	    }
+                      
+                  }
+                  else {
+                  	for (let i= 1; i <=8; i++){
+              	        if (column+i <= 8) {
+                              convert(row, column+i);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (column-i >= 1) {
+                              convert(row, column-i);                              
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row+i <= 8) {
+                              convert(row+i, column);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1) {
+                              convert(row-i, column);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              } 
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }                                           
+              	    }
+                  }
+              }
+              
+              function queenmove() {
+              	if (color=='white') {
+                      bishopmove();
+              	    for (let i= 1; i <=8; i++){
+              	        if (column+i <= 8) {
+                              convert(row, column+i);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (column-i >= 1) {
+                              convert(row, column-i);                              
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row+i <= 8) {
+                              convert(row+i, column);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1) {
+                              convert(row-i, column);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              } 
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }                                           
+              	    }
+                  }
+                  else {
+                  	bishopmove();
+                  	for (let i= 1; i <=8; i++){
+              	        if (column+i <= 8) {
+                              convert(row, column+i);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (column-i >= 1) {
+                              convert(row, column-i);                              
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row+i <= 8) {
+                              convert(row+i, column);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1) {
+                              convert(row-i, column);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              } 
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }                                           
+              	    }
+                  }
+              }
+              
+              function bishopmove() {
+              	if (color=='white') {
+              	    for (let i= 1; i <=8; i++){
+              	        if (column+i <= 8 && row+i <= 8) {
+                              convert(row+i, column+i);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (column-i >= 1 && row+i <= 8) {
+                              convert(row+i, column-i);                              
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1 && column+i <= 8) {
+                              convert(row-i, column+i);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1 && column-i >= 1) {
+                              convert(row-i, column-i);
+                              if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              } 
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }                                           
+              	    }
+                  }
+                  else {
+                  	for (let i= 1; i <=8; i++){
+              	        if (column+i <= 8 && row+i <= 8) {
+                              convert(row+i, column+i);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (column-i >= 1 && row+i <= 8) {
+                              convert(row+i, column-i);                              
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1 && column+i <= 8) {
+                              convert(row-i, column+i);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              }
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          } 
+                      }
+                      for (let i= 1; i <=8; i++){
+                          if (row-i >= 1 && column-i >= 1) {
+                              convert(row-i, column-i);
+                              if (board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                              	break;
+                              }
+                              else if (board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                              	document.getElementById('i'+x).style.display = "block";
+                                  break;
+                              } 
+                              document.getElementById('i'+x).style.display = "block";
+                              continue;
+                          }                                           
+              	    }                           
+                  }
+              }
+              
+              function kingmove() {
+              	if (color == 'white' || color == 'whitea') {
+              	convert(row+1,column+1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }                 
+                  convert(row+1,column-1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row+1,column);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row-1,column+1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row-1,column-1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row-1,column);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row,column+1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row,column-1);
+                  if (board[x] == ' ' || board[x] == 'bR' || board[x] == 'bN' || board[x] == 'bB' || board[x] == 'bQ' || board[x] == 'bK' || board[x] == 'bpa' || board[x] == 'bpb' || board[x] == 'bpc' || board[x] == 'bpd' || board[x] == 'bpe' || board[x] == 'bpf' || board[x] == 'bpg' || board[x] == 'bph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  if (bot == 'black') {
+                      if (board[7*8+4] == 'wK' && board[7*8+7] == 'wR' && board[7*8+5] == ' ' && board[7*8+6] == ' ') {document.getElementById('i'+(7*8+6)).style.display = "block";}
+                      if (board[7*8+4] == 'wK' && board[7*8+0] == 'wR' && board[7*8+1] == ' ' && board[7*8+2] == ' ' && board[7*8+3] == ' ') {document.getElementById('i'+(7*8+2)).style.display = "block";}
+                  } else if (bot == 'white') {
+                  	if (board[7*8+3] == 'wK' && board[7*8+7] == 'wR' && board[7*8+4] == ' ' && board[7*8+5] == ' ' && board[7*8+6] == ' ') {document.getElementById('i'+(7*8+5)).style.display = "block";}
+                      if (board[7*8+3] == 'wK' && board[7*8+0] == 'wR' && board[7*8+1] == ' ' && board[7*8+2] == ' ') {document.getElementById('i'+(7*8+1)).style.display = "block";}
+                  }
+                  }
+                 else {
+                  convert(row+1,column+1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }                 
+                  convert(row+1,column-1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row+1,column);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row-1,column+1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row-1,column-1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row-1,column);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row,column+1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  convert(row,column-1);
+                  if (board[x] == ' ' || board[x] == 'wR' || board[x] == 'wN' || board[x] == 'wB' || board[x] == 'wQ' || board[x] == 'wK' || board[x] == 'wpa' || board[x] == 'wpb' || board[x] == 'wpc' || board[x] == 'wpd' || board[x] == 'wpe' || board[x] == 'wpf' || board[x] == 'wpg' || board[x] == 'wph' ) {
+                      document.getElementById('i'+x).style.display = "block";
+                  }
+                  if (board[0*8+4] == 'bK' && board[0*8+7] == 'bR' && board[0*8+5] == ' ' && board[0*8+6] == ' ') {document.getElementById('i'+(0*8+6)).style.display = "block";}
+                  if (board[0*8+4] == 'bK' && board[0*8+0] == 'bR' && board[0*8+1] == ' ' && board[0*8+2] == ' ' && board[0*8+3] == ' ') {document.getElementById('i'+(0*8+2)).style.display = "block";}
+                  }
+             }
+              
+              function change() {              	
+              	convert(row, column);                  
+                  board[x] = board[num];
+              	if (bot=='black') {
+                  	if (board[num] == 'wK' && board[x] == board[num+2] && board[x+1] == 'wR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num+2] && board[x+1] == 'bR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num-2] && board[x-2] == 'wR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num-2] && board[x-2] == 'bR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                  } else if (bot=='white') {
+                  	if (board[num] == 'bK' && board[x] == board[num+2] && board[x+1] == 'bR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num+2] && board[x+2] == 'wR') {board[x-1] = board[x+2]; board[x+2] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num-2] && board[x-2] == 'bR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num-2] && board[x-1] == 'wR') {board[x+1] = board[x-1]; board[x-1] = ' '}
+                  }
+                  board[num] = ' ';
+                  let white = 'end';
+                  let black = 'end';
+                  for (let i=0; i < 64; i++){
+                  	if (board[i] == 'wK') {white = 'continue';}
+                      if (board[i] == 'bK') {black = 'continue';}
+                  }
+                  
+                  if (bot=='black') {
+                      if (color=='white'){color='black'; startfight();}        
+                      else if (color=='black'){color='white'; print();}
+                  } else if (bot=='white') {
+                  	if (color=='white'){color='black'; startfight();}        
+                      else if (color=='black'){color='white'; print();}
+                  }
+                  if (white == 'end'){color='none'; alert('You losed.'); location.reload();}
+                  if (black == 'end'){color='none'; alert('You won.'); location.reload();}
+              }
+              let bg;                       
+              function background() {
+              	if (bg === undefined) {bg=0;}
+                  
+              	if (bg == 5/*max*/) {bg = 0;}
+              	bg++;
+              	if (bg == 1) {
+                      document.getElementsByID('white').style.background = 'red';
+                      document.getElementsByID('black').style.background = 'blue';
+                  }
+                  if (bg == 2) {
+                      document.getElementsByClassName('white').style.background = "red";
+                      document.getElementsByClassName('black').style.background = "blue";
+                      
+                  }
+                  if (bg == 3) {
+                      document.getElementsByClassName('white').style.background = "red";
+                      document.getElementsByClassName('black').style.background = "blue";
+                      
+                  }
+                  if (bg == 4) {
+                      document.getElementsByClassName('white').style.background = "red";
+                      document.getElementsByClassName('black').style.background = "blue";
+                      
+                  }
+                  
+              }
+              var bot;
+              function whitebot() {
+              	bot = 'white';
+              }
+              function blackbot() {
+              	bot = 'black';
+              }
+              function firstmove() {
+              	if (bot=='black') {
+              	    print();
+                  } else { startfight(); }
+              }
+              var tboard =
+              ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR',
+             'bpa', 'bpb', 'bpc', 'bpd', 'bpe', 'bpf', 'bpg', 'bph',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+             'wpa', 'wpb', 'wpc', 'wpd', 'wpe', 'wpf', 'wpg', 'wph',
+             'wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR' ];
+              
+              var tanalysis;
+              function startfight() {
+              	if (bot=='black') {
+              	    color= 'black';
+                      row;
+                      column;
+                      x;
+                      
+                      tanalysis=0;
+					  botpiece();
+                      for (let i=0; i <= 737; i++) {
+                      
+                      
+              	      botpiecemove();
+                      tboard[x] = board[num];
+                      tboard[num] = ' ';
+                      value = analysis();
+                      if (Math.round(value)>Math.round(tanalysis)) {tanalysis=value; maxx=x; maxnum=num;
+                      for (let i=0; i < 64; i++) {
+                          tboard[i] = board[i];
+                      }
+					  }             
+                      }
+                      x = maxx;
+                      num = maxnum;
+                      
+                      
+                      board[x] = board[num];
+                      x = Math.round(Math.random()*63);
+                  	if (bot=='black') {
+                  	if (board[num] == 'wK' && board[x] == board[num+2] && board[x+1] == 'wR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num+2] && board[x+1] == 'bR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num-2] && board[x-2] == 'wR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num-2] && board[x-2] == 'bR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      } else if (bot=='white') {
+                  	if (board[num] == 'bK' && board[x] == board[num+2] && board[x+1] == 'wR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num+2] && board[x+1] == 'bR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num-2] && board[x-2] == 'wR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num-2] && board[x-2] == 'bR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      }
+                      board[num] = ' ';
+                      let white = 'end';
+                      let black = 'end';
+                      for (let i=0; i < 64; i++){                      	
+                      	if (board[i] == 'wK') {white = 'continue';}
+                          if (board[i] == 'bK') {black = 'continue';}
+                      }                
+                      if (color=='white'){color='black'; print();}
+                      /*else if (color=='whitea'){color='black'; print();}
+                      else if (color=='black'){color='blacka'; print();}*/
+                      else if (color=='black'){color='white'; print();}
+                      if (white == 'end'){color='none'; alert('You losed.');}
+                      if (black == 'end'){color='none'; alert('You won.');}
+              	    
+                  }
+                  
+                  else if (bot=='white') {
+                  	color= 'black';
+                      row;
+                      column;
+                      x;
+                      botpiece();
+              	      botpiecemove();
+                      board[x] = board[num];
+                      x = Math.round(Math.random()*63);
+                      if (bot=='black') {
+                  	if (board[num] == 'wK' && board[x] == board[num+2] && board[x+1] == 'wR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num+2] && board[x+1] == 'bR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num-2] && board[x-2] == 'wR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num-2] && board[x-2] == 'bR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      } else if (bot=='white') {
+                  	if (board[num] == 'bK' && board[x] == board[num+2] && board[x+1] == 'wR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num+2] && board[x+1] == 'bR') {board[x-1] = board[x+1]; board[x+1] = ' '}
+                      if (board[num] == 'bK' && board[x] == board[num-2] && board[x-2] == 'wR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      if (board[num] == 'wK' && board[x] == board[num-2] && board[x-2] == 'bR') {board[x+1] = board[x-2]; board[x-2] = ' '}
+                      }
+                      
+                      board[num] = ' ';
+                      let white = 'end';
+                      let black = 'end';
+                      for (let i=0; i < 64; i++){
+                      	if (board[i] == 'wK') {white = 'continue';}
+                          if (board[i] == 'bK') {black = 'continue';}
+                      }                
+                      if (color=='white'){color='black'; print();}
+                      /*else if (color=='whitea'){color='black'; print();}
+                      else if (color=='black'){color='blacka'; print();}*/
+                      else if (color=='black'){color='white'; print();}
+                      if (white == 'end'){color='none'; alert('You losed.');}
+                      if (black == 'end'){color='none'; alert('You won.');}
+              	    
+                  }
+              }
+              var cece;
+              function botpiece() {
+              	cece = 0;
+              	while (true) {
+                        row = Math.round(Math.random()*7+1);
+                        column = Math.round(Math.random()*7+1);
+                        num = convert(row, column);    	                	        
+                        if (board[num] == 'bK' || board[num] == 'bR' || board[num] == 'bN' || board[num] == 'bB' || board[num] == 'bQ' || board[num] == 'bpa' || board[num] == 'bpb' || board[num] == 'bpc' || board[num] == 'bpd' || board[num] == 'bpe' || board[num] == 'bpf' || board[num] == 'bpg' || board[num] == 'bph' ){
+                            	break;
+						}
+                  }
+              }
+              
+              
+              
+              function botpiecemove() {
+              	while (true) {                  	
+                          if (
+                          (board[num] == 'bpa') || (board[num] == 'bpb') || (board[num] == 'bpc') || (board[num] == 'bpd') || (board[num] == 'bpe') || (board[num] == 'bpf') || (board[num] == 'bpg') || (board[num] == 'bph' )
+                          ) {                          	                          
+                          	x = Math.round(Math.random()*63);
+                              if (
+                              (board[x] != 'bK' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' )
+                              && ( (x == converta(row+1,column) && board[x] == ' ' && row+1 <= 8)
+                              || (x == converta(row+2,column) && board[converta(row+1,column)] == ' ' && board[x] == ' ' && row == 2)
+                              || (x == converta(row+1,column+1) && board[x] != ' ' && row+1 <= 8 && column+1 <= 8)
+                              || (x == converta(row+1,column-1) && board[x] != ' ' && row+1 <= 8 && row-1 >= 1)
+                              ) ) {
+                                  break;
+                              } else {cece+=1;}
+                              if (cece == 64) {botpiece();}
+                          }
+                          
+                          if (board[num] == 'bR') {                          	
+                          	x = Math.round(Math.random()*63);
+                              if (
+                              (board[x] != 'bK' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' )
+                              && ( (x == converta(row+1,column) && row+1 <= 8)
+                              || (x == converta(row+2,column) && row+2 <= 8 && board[converta(row+1,column)] == ' ')
+                              || (x == converta(row+3,column) && row+3 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ')
+                              || (x == converta(row+4,column) && row+4 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ')
+                              || (x == converta(row+5,column) && row+5 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ' && board[converta(row+4,column)] == ' ')
+|| (x == converta(row+6,column) && row+6 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ' && board[converta(row+4,column)] == ' ' && board[converta(row+5,column)] == ' ')
+|| (x == converta(row+7,column) && row+7 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ' && board[converta(row+4,column)] == ' ' && board[converta(row+5,column)] == ' ' && board[converta(row+6,column)] == ' ')
+                              || (x == converta(row,column-1) && column-1 <= 8)
+                              || (x == converta(row,column-2) && column-2 <= 8 && board[converta(row,column-1)] == ' ')
+                              || (x == converta(row,column-3) && column-3 <= 8 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ')
+                              || (x == converta(row,column-4) && column-4 <= 8 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ')
+                              || (x == converta(row,column-5) && column-5 <= 8 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ' && board[converta(row,column-4)] == ' ')
+|| (x == converta(row,column-6) && column-6 <= 8 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ' && board[converta(row,column-4)] == ' ' && board[converta(row,column-5)] == ' ')
+|| (x == converta(row,column-7) && column+7 <= 8 && board[converta(rowcolumn-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ' && board[converta(row,column-4)] == ' ' && board[converta(row,column-5)] == ' ' && board[converta(row,column-6)] == ' ')
+                              || (x == converta(row,column-1) && row-1 <= 8)
+                              || (x == converta(row,column-2) && row-2 <= 8 && board[converta(row-1,column)] == ' ')
+                              || (x == converta(row,column-3) && row-3 <= 8 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ')
+                              || (x == converta(row,column-4) && row-4 <= 8 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ')
+                              || (x == converta(row,column-5) && row-5 <= 8 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ' && board[converta(row-4,column)] == ' ')
+|| (x == converta(row-6,column) && row-6 <= 8 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ' && board[converta(row-4,column)] == ' ' && board[converta(row-5,column)] == ' ')
+|| (x == converta(row-7,column) && row-7 <= 8 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ' && board[converta(row-4,column)] == ' ' && board[converta(row-5,column)] == ' ' && board[converta(row-6,column)] == ' ')
+                              || (x == converta(row,column+1) && column+1 <= 8)
+                              || (x == converta(row,column+2) && column+2 <= 8 && board[converta(row,column+1)] == ' ')
+                              || (x == converta(row,column+3) && column+3 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ')
+                              || (x == converta(row,column+4) && column+4 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ')
+                              || (x == converta(row,column+5) && column+5 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ' && board[converta(row,column+4)] == ' ')
+|| (x == converta(row,column+6) && column+6 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ' && board[converta(row,column+4)] == ' ' && board[converta(row,column+5)] == ' ')
+|| (x == converta(row,column+7) && column+7 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ' && board[converta(row,column+4)] == ' ' && board[converta(row,column+5)] == ' ' && board[converta(row,column+6)] == ' ')
+                              ) ) {
+                                  break;
+                              } else {cece+=1;}
+                              if (cece == 64) {botpiece();} 
+                          }
+                          
+                          if (board[num] == 'bN') {                          	                          
+                              x = Math.round(Math.random()*63);
+                              if (
+                              (board[x] != 'bK' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' )
+                              && ( (x == converta(row+2,column+1) && board[x] == ' ' && row+2 <= 8 && column+1 <= 8)
+                              || (x == converta(row+2,column-1) && board[x] == ' ' && row+2 <= 8 && column-1 >= 0)
+                              || (x == converta(row-2,column+1) && board[x] == ' ' && row-2 >= 0 && column+1 <= 8)
+                              || (x == converta(row-2,column-1) && board[x] == ' ' && row-2 >= 0 && column-1 >= 0)
+                              || (x == converta(row+1,column+2) && board[x] == ' ' && row+1 <= 8 && column+2 <= 8)
+                              || (x == converta(row+1,column-2) && board[x] == ' ' && row+1 <= 8 && column-2 >= 0)
+                              || (x == converta(row-1,column+2) && board[x] == ' ' && row-1 >= 0 && column+2 <= 8)
+                              || (x == converta(row-1,column-2) && board[x] == ' ' && row-2 >= 0 && column-2 >= 0)
+                              ) ) {
+                                  break;
+                              } else {cece+=1;}
+                              if (cece == 64) {botpiece();}
+                          }
+                          
+                          if (board[num] == 'bB') {
+                          	x = Math.round(Math.random()*63);
+                              if (
+                              (board[x] != 'bK' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' )
+                              && ( (x == converta(row+1,column+1) && row+1 <= 8 && column+1 <= 8)
+                              || (x == converta(row+2,column+2) && row+2 <= 8 && column+2 <= 8 && board[converta(row+1,column+1)] == ' ')
+                              || (x == converta(row+3,column+3) && row+3 <= 8 && column+3 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ')
+                              || (x == converta(row+4,column+4) && row+4 <= 8 && column+4 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ')
+                              || (x == converta(row+5,column+5) && row+5 <= 8 && column+5 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ' && board[converta(row+4,column+4)] == ' ')
+|| (x == converta(row+6,column+6) && row+6 <= 8 && column+6 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ' && board[converta(row+4,column+4)] == ' ' && board[converta(row+5,column+5)] == ' ')
+|| (x == converta(row+7,column+7) && row+7 <= 8 && column+7 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ' && board[converta(row+4,column+4)] == ' ' && board[converta(row+5,column+5)] == ' ' && board[converta(row+6,column+6)] == ' ')
+                              || (x == converta(row+1,column-1) && row+1 <= 8 && column-1 >= 1)
+                              || (x == converta(row+2,column-2) && row+2 <= 8 && column-2 >= 1 && board[converta(row+1,column-1)] == ' ')
+                              || (x == converta(row+3,column-3) && row+3 <= 8 && column-3 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ')
+                              || (x == converta(row+4,column-4) && row+4 <= 8 && column-4 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ')
+                              || (x == converta(row+5,column-5) && row+5 <= 8 && column-5 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ' && board[converta(row+4,column-4)] == ' ')
+|| (x == converta(row+6,column-6) && row+6 <= 8 && column-6 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ' && board[converta(row+4,column-4)] == ' ' && board[converta(row+5,column-5)] == ' ')
+|| (x == converta(row+7,column-7) && row+7 <= 8 && column-7 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ' && board[converta(row+4,column-4)] == ' ' && board[converta(row+5,column-5)] == ' ' && board[converta(row+6,column-6)] == ' ')
+                              || (x == converta(row-1,column-1) && row-1 >= 0 && column-1 >= 1)
+                              || (x == converta(row-2,column-2) && row-2 >= 0 && column-2 >= 1 && board[converta(row-1,column-1)] == ' ')
+                              || (x == converta(row-3,column-3) && row-3 >= 0 && column-3 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ')
+                              || (x == converta(row-4,column-4) && row-4 >= 0 && column-4 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ')
+                              || (x == converta(row-5,column-5) && row-5 >= 0 && column-5 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ' && board[converta(row-4,column-4)] == ' ')
+|| (x == converta(row-6,column-6) && row-6 >= 1 && column-6 >= 0 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ' && board[converta(row-4,column-4)] == ' ' && board[converta(row-5,column-5)] == ' ')
+|| (x == converta(row-7,column-7) && row-7 >= 1 && column-7 >= 0 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ' && board[converta(row-4,column-4)] == ' ' && board[converta(row-5,column-5)] == ' ' && board[converta(row-6,column-6)] == ' ')
+                              || (x == converta(row-1,column+1) && row-1 >= 1 && column+1 <= 8)
+                              || (x == converta(row-2,column+2) && row-2 >= 1 && column+2 <= 8 && board[converta(row-1,column+1)] == ' ')
+                              || (x == converta(row-3,column+3) && row-3 >= 1 && column+3 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ')
+                              || (x == converta(row-4,column+4) && row-4 >= 1 && column+4 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ')
+                              || (x == converta(row-5,column+5) && row-5 >= 1 && column+5 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ' && board[converta(row-4,column+4)] == ' ')
+|| (x == converta(row-6,column+6) && row-6 >= 1 && column+6 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ' && board[converta(row-4,column+4)] == ' ' && board[converta(row-5,column+5)] == ' ')
+|| (x == converta(row-7,column+7) && row-7 >= 1 && column+7 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ' && board[converta(row-4,column+4)] == ' ' && board[converta(row-5,column+5)] == ' ' && board[converta(row-6,column+6)] == ' ')
+                              ) ) {
+                                  break;
+                              } else {cece+=1;}
+                              if (cece == 64) {botpiece();} 
+                          }
+                          
+                          if (board[num] == 'bQ') {
+                          	x = Math.round(Math.random()*63);
+                              if (
+                              (board[x] != 'bK' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' )
+                              && ( (x == converta(row+1,column+1) && row+1 <= 8 && column+1 <= 8)
+                              || (x == converta(row+2,column+2) && row+2 <= 8 && column+2 <= 8 && board[converta(row+1,column+1)] == ' ')
+                              || (x == converta(row+3,column+3) && row+3 <= 8 && column+3 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ')
+                              || (x == converta(row+4,column+4) && row+4 <= 8 && column+4 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ')
+                              || (x == converta(row+5,column+5) && row+5 <= 8 && column+5 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ' && board[converta(row+4,column+4)] == ' ')
+|| (x == converta(row+6,column+6) && row+6 <= 8 && column+6 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ' && board[converta(row+4,column+4)] == ' ' && board[converta(row+5,column+5)] == ' ')
+|| (x == converta(row+7,column+7) && row+7 <= 8 && column+7 <= 8 && board[converta(row+1,column+1)] == ' ' && board[converta(row+2,column+2)] == ' ' && board[converta(row+3,column+3)] == ' ' && board[converta(row+4,column+4)] == ' ' && board[converta(row+5,column+5)] == ' ' && board[converta(row+6,column+6)] == ' ')
+                              || (x == converta(row+1,column-1) && row+1 <= 8 && column-1 >= 1)
+                              || (x == converta(row+2,column-2) && row+2 <= 8 && column-2 >= 1 && board[converta(row+1,column-1)] == ' ')
+                              || (x == converta(row+3,column-3) && row+3 <= 8 && column-3 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ')
+                              || (x == converta(row+4,column-4) && row+4 <= 8 && column-4 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ')
+                              || (x == converta(row+5,column-5) && row+5 <= 8 && column-5 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ' && board[converta(row+4,column-4)] == ' ')
+|| (x == converta(row+6,column-6) && row+6 <= 8 && column-6 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ' && board[converta(row+4,column-4)] == ' ' && board[converta(row+5,column-5)] == ' ')
+|| (x == converta(row+7,column-7) && row+7 <= 8 && column-7 >= 1 && board[converta(row+1,column-1)] == ' ' && board[converta(row+2,column-2)] == ' ' && board[converta(row+3,column-3)] == ' ' && board[converta(row+4,column-4)] == ' ' && board[converta(row+5,column-5)] == ' ' && board[converta(row+6,column-6)] == ' ')
+                              || (x == converta(row-1,column-1) && row-1 >= 1 && column-1 >= 1)
+                              || (x == converta(row-2,column-2) && row-2 >= 1 && column-2 >= 1 && board[converta(row-1,column-1)] == ' ')
+                              || (x == converta(row-3,column-3) && row-3 >= 1 && column-3 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ')
+                              || (x == converta(row-4,column-4) && row-4 >= 1 && column-4 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ')
+                              || (x == converta(row-5,column-5) && row-5 >= 1 && column-5 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ' && board[converta(row-4,column-4)] == ' ')
+|| (x == converta(row-6,column-6) && row-6 >= 1 && column-6 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ' && board[converta(row-4,column-4)] == ' ' && board[converta(row-5,column-5)] == ' ')
+|| (x == converta(row-7,column-7) && row-7 >= 1 && column-7 >= 1 && board[converta(row-1,column-1)] == ' ' && board[converta(row-2,column-2)] == ' ' && board[converta(row-3,column-3)] == ' ' && board[converta(row-4,column-4)] == ' ' && board[converta(row-5,column-5)] == ' ' && board[converta(row-6,column-6)] == ' ')
+                              || (x == converta(row-1,column+1) && row-1 >= 1 && column+1 <= 8)
+                              || (x == converta(row-2,column+2) && row-2 >= 1 && column+2 <= 8 && board[converta(row-1,column+1)] == ' ')
+                              || (x == converta(row-3,column+3) && row-3 >= 1 && column+3 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ')
+                              || (x == converta(row-4,column+4) && row-4 >= 1 && column+4 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ')
+                              || (x == converta(row-5,column+5) && row-5 >= 1 && column+5 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ' && board[converta(row-4,column+4)] == ' ')
+|| (x == converta(row-6,column+6) && row-6 >= 1 && column+6 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ' && board[converta(row-4,column+4)] == ' ' && board[converta(row-5,column+5)] == ' ')
+|| (x == converta(row-7,column+7) && row-7 >= 1 && column+7 <= 8 && board[converta(row-1,column+1)] == ' ' && board[converta(row-2,column+2)] == ' ' && board[converta(row-3,column+3)] == ' ' && board[converta(row-4,column+4)] == ' ' && board[converta(row-5,column+5)] == ' ' && board[converta(row-6,column+6)] == ' ')
+                              || (x == converta(row+1,column) && row+1 <= 8)
+                              || (x == converta(row+2,column) && row+2 <= 8 && board[converta(row+1,column)] == ' ')
+                              || (x == converta(row+3,column) && row+3 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ')
+                              || (x == converta(row+4,column) && row+4 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ')
+                              || (x == converta(row+5,column) && row+5 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ' && board[converta(row+4,column)] == ' ')
+|| (x == converta(row+6,column) && row+6 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ' && board[converta(row+4,column)] == ' ' && board[converta(row+5,column)] == ' ')
+|| (x == converta(row+7,column) && row+7 <= 8 && board[converta(row+1,column)] == ' ' && board[converta(row+2,column)] == ' ' && board[converta(row+3,column)] == ' ' && board[converta(row+4,column)] == ' ' && board[converta(row+5,column)] == ' ' && board[converta(row+6,column)] == ' ')
+                              || (x == converta(row,column-1) && column-1 >= 1)
+                              || (x == converta(row,column-2) && column-2 >= 1 && board[converta(row,column-s1)] == ' ')
+                              || (x == converta(row,column-3) && column-3 >= 1 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ')
+                              || (x == converta(row,column-4) && column-4 >= 1 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ')
+                              || (x == converta(row,column-5) && column-5 >= 1 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ' && board[converta(row,column-4)] == ' ')
+|| (x == converta(row,column-6) && column-6 >= 1 && board[converta(row,column-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ' && board[converta(row,column-4)] == ' ' && board[converta(row,column-5)] == ' ')
+|| (x == converta(row,column-7) && column-7 >= 1 && board[converta(rowcolumn-1)] == ' ' && board[converta(row,column-2)] == ' ' && board[converta(row,column-3)] == ' ' && board[converta(row,column-4)] == ' ' && board[converta(row,column-5)] == ' ' && board[converta(row,column-6)] == ' ')
+                              || (x == converta(row,column-1) && row-1 >= 1)
+                              || (x == converta(row,column-2) && row-2 >= 1 && board[converta(row-1,column)] == ' ')
+                              || (x == converta(row,column-3) && row-3 >= 1 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ')
+                              || (x == converta(row,column-4) && row-4 >= 1 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ')
+                              || (x == converta(row,column-5) && row-5 >= 1 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ' && board[converta(row-4,column)] == ' ')
+|| (x == converta(row-6,column) && row-6 >= 1 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ' && board[converta(row-4,column)] == ' ' && board[converta(row-5,column)] == ' ')
+|| (x == converta(row-7,column) && row-7 >= 1 && board[converta(row-1,column)] == ' ' && board[converta(row-2,column)] == ' ' && board[converta(row-3,column)] == ' ' && board[converta(row-4,column)] == ' ' && board[converta(row-5,column)] == ' ' && board[converta(row-6,column)] == ' ')
+                              || (x == converta(row,column+1) && column+1 <= 8)
+                              || (x == converta(row,column+2) && column+2 <= 8 && board[converta(row,column+1)] == ' ')
+                              || (x == converta(row,column+3) && column+3 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ')
+                              || (x == converta(row,column+4) && column+4 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ')
+                              || (x == converta(row,column+5) && column+5 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ' && board[converta(row,column+4)] == ' ')
+|| (x == converta(row,column+6) && column+6 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ' && board[converta(row,column+4)] == ' ' && board[converta(row,column+5)] == ' ')
+|| (x == converta(row,column+7) && column+7 <= 8 && board[converta(row,column+1)] == ' ' && board[converta(row,column+2)] == ' ' && board[converta(row,column+3)] == ' ' && board[converta(row,column+4)] == ' ' && board[converta(row,column+5)] == ' ' && board[converta(row,column+6)] == ' ')
+                              ) ) {
+                                  break;
+                              } else {cece+=1;}
+                              if (cece == 64) {botpiece();} 
+                          }
+                          
+                          if (board[num] == 'bK') {     
+                              x = Math.round(Math.random()*63);
+                              if (
+                              (board[x] != 'bK' && board[x] != 'bR' && board[x] != 'bN' && board[x] != 'bB' && board[x] != 'bQ' && board[x] != 'bpa' && board[x] != 'bpb' && board[x] != 'bpc' && board[x] != 'bpd' && board[x] != 'bpe' && board[x] != 'bpf' && board[x] != 'bpg' && board[x] != 'bph' )
+                              && ( (x == converta(row+1,column+1) && row <= 7 && column <= 7)
+                              || (x == converta(row+1,column-1) && row <= 7 && column >= 2)
+                              || (x == converta(row-1,column+1) && row >= 2 && column <= 7)
+                              || (x == converta(row-1,column-1) && row >= 2 && column >= 2)
+                              || (x == converta(row,column+1) && column <= 7)
+                              || (x == converta(row,column-1) && column >= 2)
+                              || (x == converta(row+1,column) && row <= 7)
+                              || (x == converta(row-1,column) && row >= 2)
+                              ) ) {
+                                  break;
+                              } else {cece+=1;}
+                              if (cece == 64) {botpiece();}
+                          }                                                                            
+                  }
+              }
+              var value;
+              function analysis() {
+              	value = 100;
+              	for (let i=0; i<64; i++) {           
+              	      if ((tboard[i] == 'wpa') || (tboard[i] == 'wpb') || (tboard[i] == 'wpc') || (tboard[i] == 'wpd') || (tboard[i] == 'wpe') || (tboard[i] == 'wpf') || (tboard[i] == 'wpg') || (tboard[i] == 'wph' )) {
+              	        value-=1;
+                      }
+                      if (tboard[i] == 'wN') {
+                      	value-=3;
+                      }
+                      if (tboard[i] == 'wB') {
+                      	value-=3;
+                      }
+                      if (tboard[i] == 'wQ') {
+                      	value-=9;
+                      }
+                      if (tboard[i] == 'wK') {
+                      	value-=37;                  
+                      }
+                  }
+                  
+                  return value;
+              }
+            
+		</script>
+	</body>
+</html>
+	

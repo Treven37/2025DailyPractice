@@ -1,0 +1,135 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: fixed;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+}
+.fullbgimg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.bordertop {
+  position: relative;
+  background: black;
+  width: 100%;
+  height: 11px;
+}
+.pillar {
+  position: relative;
+  background: green;
+  height: 100%;
+  width: 5%;
+  left: 98%;
+  top: -100%;
+  z-index: 12;
+}
+#score {
+  z-index: 26;
+  font-size: 73px;
+  background: rgba(0,0,0,0);
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  color: white;
+}
+#show {
+  display: flex;
+  flex-flow: column;
+  height: 50%;
+  width: 50%;
+  position: absolute;
+  background: rgba(77,77,222,0.9);
+  top: 25%;
+  left: 25%;
+}
+#title {
+  background: rgba(177,177,222,0.3);
+  justify-content: center;
+  font-size: 48px;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+.start {
+  display: flex;
+  position: relative;
+  height: 48px;
+  width: 50%;
+  left: 25%;
+  top: 10%;
+  border-radius: 13px;
+  border: 3px black;
+  background: rgba(11,11,237,0.7);
+  margin: 15px 0;
+}
+.start div {
+  color: white;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  font-size: 37px;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}
+#ball {
+  display: flex;
+  flex-flow: column;
+  height: 73%;
+  width: 50%;
+  position: absolute;
+  background: rgba(77,77,222,1);
+  top: 13%;
+  left: 25%;
+  
+  border-radius: 7px;
+  opacity: 0.9;
+}
+
+.hole {
+  background: white;
+  opacity: 0.8;
+  position: relative;
+  height: 33%;
+  width: 100%;
+  z-index: 20;
+}
+#birdarea {
+  flex: 1;
+  background: red;
+  width: 100%;
+  height: 85%;
+}
+#groundarea {
+  height: 15%;
+  width: 100%;
+  background: blue;
+}
+#bird {
+  position: relative;
+  height: 100%;
+  width: 62px;
+  top: 0;
+  left: 11%;
+  margin: 0;
+  padding: 0;
+  z-index: 37;
+}
+.bll {
+  height: 73px;
+  width: 73px;
+  border-radius: 50%;
+  top: 50%;
+}
+.ball {
+  display: inline-block;
+  margin: 11px;
+  width: 62px;
+  height: 62px;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>5v5MOBA AI</title>
+	<style>
+		body {
+			position: fixed;
+			left: 0;
+			top: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+		}
+		input {
+			width: 84vw;
+			height: 7vw;
+			border: solid 1px black;
+			border-radius: 3vw;
+		}
+		label {
+			font-size: 4vw;
+		}
+		input {
+			padding-left: 21px;
+			font-size: 4vw;
+			width: 84vw;
+			height: 7vw;
+		}
+		button {
+			width: 84vw;
+			height: 7vw;
+			font-size: 4vw;
+		}
+		form input[type="text"] {
+    		text-transform: lowercase;
+		}
+	</style>
+</head>
+<body>
+	
+    <button id="ba" onClick="go();"></button>
+    <br/><br/><br/>
+	<form id="form" method="GET" action="/analyse">
+        <label for="a">Your Hero:</label><br/>
+		<input type="text" id="a" name="a"/><br/>
+		<br/><br/><br/>
+		<label for="a2">Allied Hero:</label><br/>
+		<input type="text" id="a2" name="a2"/><br/>
+		<label for="a3">Allied Hero:</label><br/>
+		<input type="text" id="a3" name="a3"/><br/>
+		<label for="a4">Allied Hero:</label><br/>
+		<input type="text" id="a4" name="a4"/><br/>
+		<label for="a5">Allied Hero:</label><br/>
+		<input type="text" id="a5" name="a5"/><br/>
+		<br/><br/><br/>
+		<label for="b">Enemy Hero:</label><br/>
+		<input type="text" id="b" name="b"/><br/>
+		<label for="b2">Enemy Hero:</label><br/>
+		<input type="text" id="b2" name="b2"/><br/>
+		<label for="b3">Enemy Hero:</label><br/>
+		<input type="text" id="b3" name="b3"/><br/>
+		<label for="b4">Enemy Hero:</label><br/>
+		<input type="text" id="b4" name="b4"/><br/>
+		<label for="b5">Enemy Hero:</label><br/>
+		<input type="text" id="b5" name="b5"/><br/>
+		<br/><br/><br/>
+		<button type="submit">
+			Analyze
+		</button>
+    </form>
+    <form id="form2" method="POST" action="/battle">
+        <label for="a">Your Hero:</label><br/>
+		<input type="text" id="a" name="a"/><br/>
+		<br/><br/><br/>
+		<label for="a2">Allied Hero:</label><br/>
+		<input type="text" id="a2" name="a2"/><br/>
+		<label for="a3">Allied Hero:</label><br/>
+		<input type="text" id="a3" name="a3"/><br/>
+		<label for="a4">Allied Hero:</label><br/>
+		<input type="text" id="a4" name="a4"/><br/>
+		<label for="a5">Allied Hero:</label><br/>
+		<input type="text" id="a5" name="a5"/><br/>
+		<br/><br/><br/>
+		<label for="b">Enemy Hero:</label><br/>
+		<input type="text" id="b" name="b"/><br/>
+		<label for="b2">Enemy Hero:</label><br/>
+		<input type="text" id="b2" name="b2"/><br/>
+		<label for="b3">Enemy Hero:</label><br/>
+		<input type="text" id="b3" name="b3"/><br/>
+		<label for="b4">Enemy Hero:</label><br/>
+		<input type="text" id="b4" name="b4"/><br/>
+		<label for="b5">Enemy Hero:</label><br/>
+		<input type="text" id="b5" name="b5"/><br/>
+		<br/>
+		<label for="game">Won: </label><br/>
+		<input type="checkbox" id="game" name="game" value="win"/><br/>
+		<br/><br/><br/>
+		<button type="submit">
+			Train AI
+		</button>
+    </form>
+    <script>
+    	var a = 0;
+    	go();
+    	function go() {
+			if (a==0) {
+    			document.getElementById("form").style.display = "block";
+    			document.getElementById("form2").style.display = "none"; a=1;
+    			document.getElementById("ba").innerHTML = "Train the AI here!";
+    		} else {
+    			document.getElementById("form").style.display = "none";
+    			document.getElementById("form2").style.display = "block"; a=0;
+    			document.getElementById("ba").innerHTML = "Back to try the AI";
+    			alert("Put all of your\ngame history here\nto train the AI");
+    		}
+    	}
+    </script>
+</body>
+</html>

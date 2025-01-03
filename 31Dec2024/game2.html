@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=no"/>
+  <link rel="stylesheet" href="./assets/style.css" />
+  <style>
+  	html {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			transform-origin: top left;
+			transform: translate(100vw, 0) rotate(90deg);
+			height: 100vw;
+			width: 93vh;
+			position: fixed;
+			top: 0;
+		}
+		@media screen and (orientation:landscape) {
+			/* Landscape styles here */
+			html {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			transform-origin: top left;
+			transform: rotate(0);
+			height: 100vh;
+			width: 100vw;
+			position: fixed;
+			top: 0;
+			}
+			
+		}
+		* {
+			color: rgb(237,237,255);
+			box-sizing: border-box;
+			-webkit-touch-callout: none;
+    		-webkit-user-select: none;
+    		-khtml-user-select: none;
+   		 -moz-user-select: none;
+ 		   -ms-user-select: none;
+ 		   user-select: none;
+		}
+		
+  	.firstpage {
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-flow: column;
+			background: black;
+			top: 0;
+			left: 0;
+		}
+		.space {
+			flex: 1;
+			opacity: 0;
+		}
+		.box {
+			flex: 8;
+			opacity: 1;
+			display: flex;
+			justify-content: center;
+			flex-flow: row;
+			z-index: 5;
+		}
+		.leaderboard, .login {
+			height: 100%;
+			width: 48%;
+			margin: 0 17px;
+			border-radius: 48px;
+			background: rgba(73,0,0, 0.8);
+			opacity: 0.9;
+			display: flex;
+			flex-flow: column;
+			color: white;
+		}
+		.title {
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			flex: 2;
+			background: rgba(0,0,0,0);
+			display: flex;
+			flex-flow: row;
+		}
+		.title * {
+			margin: 0 4px;
+			font-size: 37px;
+		}
+		.list {
+			display: flex;
+			flex-flow: column;
+			flex: 17;
+			background: rgba(0,0,0,0);
+		}
+		.row {
+			flex: 1;
+			width: 100%;
+			display: flex;
+			flex-flow: row;
+			background: rgba(0,0,0,0);
+		}
+		.row * {
+			justify-content: center;
+			text-align: center;
+			display: flex;
+		}
+		.rank {
+			flex: 4;
+			justify-content: center;
+			align-items: center;
+		}
+		.name {
+			flex: 11;
+			align-items: center;
+			justify-content: left;
+			font-weight: 500;
+			font-size: 26px;
+		}
+		.score {
+			flex: 11;
+			font-size: 21px;
+			font-weight: 600;
+			align-items: center;
+		}
+		.login * {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+		}
+		.Log {
+			align-items: center;
+			align-text: center;
+			justify-content: center;
+			font-weight: 600;
+			font-size: 26px;
+			padding: 0;
+			margin-top: 11%;
+			margin-bottom: 5%;
+		}
+		h1 {
+			margin-top: 15px;
+			margin-bottom: 7px;
+		}
+		.switch {
+			flex-flow: row;
+		}
+		.button {
+			flex: 2;
+			height: 55px;
+			background: rgb(173,11,11);
+			margin-top: 2px;
+			margin-bottom: 10px;
+			border-radius: 23px;
+			display: flex;
+			justify-content: left;
+		}
+		.block {
+			background: rgb(173,84,84);
+			height: 100%;
+			border-radius: 23px;
+			width: 50%;
+		}
+		.tsign {
+			position: absolute;
+			left: 24.5%;
+			top: 29%;
+			z-index: 6;
+			color: rgb(173,84,84);
+			font-weight: 600;
+			font-size: 25px;
+		}
+		.tlog {
+			position: absolute;
+			left: 15%;
+			top: 29%;
+			z-index: 6;
+			color: rgb(173,0,0);
+			font-weight: 700;
+			font-size: 25px;
+		}
+		.firstpage input {
+			width: 73%;
+			height: 48px;
+			margin: 15px 0;
+			margin-left: -48px;
+			border-radius: 17px;
+			padding-left: 55px;
+			font-size: 21px;
+		}
+		.firstpage button {
+			width: 37%;
+			height: 59px;
+			margin: 11px auto;
+			bottom: 14px;
+			border-radius: 23px;
+		}
+		.username {
+			display: flex;
+		}
+		.username img, .password img {
+			width: 40px;
+			height: 40px;
+			z-index: 1;
+		}
+  #game {
+    display: none;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+  }
+  </style>
+  <title>Red</title>
+</head>
+
+<body>
+	
+	<div class="firstpage" id="firstpage">
+		<img style="position: fixed; height:100%; width:100%;" src="./assets/homebg2.png"/>
+		<div class="space"></div>
+		<div class="box">
+			<div class="space"></div>
+			<div class="box">
+				<div class="leaderboard">
+					<div class="title">
+						<div class="img">
+							<img src="./assets/rank.png" style="height: 48px; width: 48px; border-radius: 50%; margin-top: 7px;"/>
+						</div>
+						<div class="text">
+							<h2>Leaderboard</h2>
+						</div>
+					</div>
+					<div class="list">
+						<div class="row">
+							<div class="rank">
+								1
+							</div>
+							<div class="name" id="name0">
+								
+							</div>
+							<div class="score" id="score0">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								2
+							</div>
+							<div class="name" id="name1">
+								
+							</div>
+							<div class="score" id="score1">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								3
+							</div>
+							<div class="name" id="name2">
+								
+							</div>
+							<div class="score" id="score2">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								4
+							</div>
+							<div class="name" id="name3">
+								
+							</div>
+							<div class="score" id="score3">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								5
+							</div>
+							<div class="name" id="name4">
+								
+							</div>
+							<div class="score" id="score4">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								6
+							</div>
+							<div class="name" id="name5">
+								
+							</div>
+							<div class="score" id="score5">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								7
+							</div>
+							<div class="name" id="name6">
+								
+							</div>
+							<div class="score" id="score6">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								8
+							</div>
+							<div class="name" id="name7">
+								
+							</div>
+							<div class="score" id="score7">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								9
+							</div>
+							<div class="name" id="name8">
+								
+							</div>
+							<div class="score" id="score8">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="rank">
+								10
+							</div>
+							<div class="name" id="name9">
+								
+							</div>
+							<div class="score" id="score9">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="login">
+					<div class="Log">
+						<h1 id="titlelog">Enter a username:</h1>
+					</div>
+					<div class="username">
+						<img src="./assets/name.png"/>
+						<input type="text" id="nssq" placeholder="Username"/>
+					</div>
+					<button style="color: black;" onClick="submit();">Enter</button>
+				</div>
+			</div>
+			<div class="space"></div>
+		</div>
+		<div class="space"></div>
+	</div>
+	
+  <div id="game">
+  <div id="ball">
+    <div id="title">
+      <span>A</span>
+    </div>
+    <div id="blist">
+      <div class="ball" onclick="balls=1; bll();">
+        <img class="bll" src="./assets/a1.png" />
+      </div>
+      <div class="ball" onclick="balls=2; bll();">
+        <img class="bll" src="./assets/a2.jpg" />
+      </div>
+      <div class="ball" onclick="balls=3; bll();">
+        <img class="bll" src="./assets/a3.jpg" />
+      </div>
+      <div class="ball" onclick="balls=4; bll();">
+        <img class="bll" src="./assets/a4.jpg" />
+      </div>
+      <div class="ball" onclick="balls=5; bll();">
+        <img class="bll" src="./assets/a5.jpg" />
+      </div>
+    </div>
+    <div id="title">
+      <span>B</span>
+    </div>
+    <div id="blist">
+      <div class="ball" onclick="balls=6; bll();">
+        <img class="bll" src="./assets/m1.jpg" />
+      </div>
+      <div class="ball" onclick="balls=7; bll();">
+        <img class="bll" src="./assets/m2.jpg" />
+      </div>
+    </div>
+  </div>
+  
+  <div id="show">
+    <div id="title">
+      <span>Tap Space to Start</span>
+    </div>
+    <a class="start" onclick="otherStart();">
+      <div>
+        Start
+      </div>
+    </a>
+    <a class="start" onclick="ball();">
+      <div>
+        Customize Ball
+      </div>
+    </a>
+	<a class="start" onclick="window.location.reload();">
+      <div>
+        Quit
+      </div>
+    </a>
+    
+  </div>
+  <div id="score"></div>
+  <div id="birdarea">
+    <img id="gogo" class="fullbgimg" src="./assets/bg.png" /> <!-- camiguin island -->
+    <div id="bird">
+      <img id="brd" class="fullbgimg bll" />
+    </div>
+    
+    
+  </div>
+  <div id="groundarea">
+    <div class="bordertop">
+    </div>
+    <img class="fullbgimg" src="./assets/gd.jpeg" />
+  </div>
+  </div>
+  
+  <script>
+alert("Lock the phone orientation first");
+var uName;
+var posy;
+var posx1;
+var counter;
+var score;
+var space;
+var r = [];
+var rotate;
+var balls = 1;
+//localStorage.clear();
+rank();
+function update() {
+  posy=50; posx1=80; score=0; space=32; rotate=0;
+}
+function js() {
+document.getElementById("show").style.zIndex = 0;
+document.getElementById("ball").style.zIndex = 0;
+for(let i=1; i<=60; i++) {
+  r[i] = Math.random()*67;
+  document.getElementById("birdarea").innerHTML += '<div id="wll'+i+'" class="pillar">'+
+      '<div id="w'+i+'" class="hole" style="top: '+r[i]+'%;">'+
+      '</div>'+
+	  '<img style="position: absolute; top: 0; height: 100%; width: 100%;" src="./assets/mughal.jpg" />'+
+	  '</div>';
+  if(i!=1){
+  	document.getElementById('wll'+i).style.top = "-"+(i*100)+"%";
+  }
+  
+}
+
+
+document.getElementById("score").innerHTML = score;
+var xspd = 0.4;
+var fwall = setInterval(function(){
+    posx1 -= xspd;
+    for(let i=1; i<=60; i++) {
+      document.getElementById("wll"+i).style.left = (posx1 + 26*(i-1))+ "%";
+    }
+    document.getElementById("brd").style.top = posy + "%";
+    if (posy >= 95) {space=1; clearInterval(gravity); show(); clearInterval(fwall);}
+  }, 22);
+  
+var Ccnt = 1;
+var gravityAcc = setInterval(function(){
+	Ccnt += 0.1;
+}, 200);
+
+var gravity = setInterval(function(){
+    posy += Ccnt;
+    if (rotate != 0) { rotate +=7}
+    if (posy >= 95) {space=1; clearInterval(gravity); show();}
+  }, 20);
+
+
+window.onclick = function(e){
+  if (space == 1){
+	document.getElementById('birdarea').innerHTML = '<img class="fullbgimg" src="./assets/bg.png" />'+
+    '<div id="bird">'+
+      '<img id="brd" class="fullbgimg bll" />'+
+    '</div>';
+	bll();
+  }
+  if(true){
+	counter = 1;
+	Ccnt = -1;
+    var looper = setInterval(function(){ 
+	  counter++;
+      //posy -= 1;
+      if (counter <= 17) { rotate -=7; Ccnt -= 0.025}
+      if (posy >= 95) {space=1; clearInterval(gravity); clearInterval(fwall); show();}
+      if (counter >= 34) {
+	  	 Ccnt = 0.9;
+         clearInterval(looper);
+      }
+    }, 6);
+  }
+}
+
+var birdUpdate = setInterval(function(){
+	document.getElementById("brd").style.top = posy + "%";
+    document.getElementById("brd").style.rotate = rotate + 'deg';
+}, 1);
+
+var check = setInterval(function(){
+      for (let i=0; i<= 60; i++) {
+      var g = r[i+1];
+      if (posx1 > (7 - (26*i)) && posx1 < (15 - (26*i)) && (posy>=g+30 || posy<=g) ) {
+        space=1; clearInterval(gravity); clearInterval(fwall); clearInterval(looper); clearInterval(check); show();
+      }
+      }
+    }, 7);
+var record = setInterval(function(){
+    score++;
+    document.getElementById("score").innerHTML = score;
+    if (space == 1) {
+	  clearInterval(record); show();
+    }
+	if(score == 1){
+		document.getElementById('gogo').src = './assets/bg.png';
+	}
+	if(score == 500){
+		document.getElementById('gogo').src = './assets/bg2.png';
+		xspd += 0.05;
+	}
+	if(score == 1000){
+		document.getElementById('gogo').src = './assets/bg3.png';
+		xspd += 0.05;
+	}
+	if(score == 1500){
+		document.getElementById('gogo').src = './assets/bg4.png';
+		xspd += 0.05;
+	}
+	if(score == 2000){
+		document.getElementById('gogo').src = './assets/bg.png';
+		xspd += 0.05;
+	}
+	if (score == 2025) {
+  	alert("Congratulations. You have finished the game.");
+  }
+  }, 37);
+
+
+function show() {
+  document.getElementById("show").style.zIndex = 73;
+  if(localStorage.getItem(username+"score")==null) {
+  	  localStorage.setItem(username+"score", score);	
+  }
+  if (score > parseInt(localStorage.getItem(username+"score"))){
+	  localStorage.setItem(username+"score", score);
+  }
+  
+}
+
+}
+
+function ball() {
+  document.getElementById("show").style.zIndex = 0;
+  document.getElementById("ball").style.zIndex = 73;
+}
+function bll() {
+  switch (balls) {
+  case 1: document.getElementById("brd").src = './assets/a1.png'; break;
+  case 2: document.getElementById("brd").src = './assets/a2.jpg'; break;
+  case 3: document.getElementById("brd").src = './assets/a3.jpg'; break;
+  case 4: document.getElementById("brd").src = './assets/a4.jpg'; break;
+  case 5: document.getElementById("brd").src = './assets/a5.jpg'; break;
+  case 6: document.getElementById("brd").src = './assets/m1.jpg'; break;
+  case 7: document.getElementById("brd").src = './assets/m2.jpg'; break;
+  }
+  update(); js();
+}
+
+		function rank() {
+			var rlist = localStorage.getItem('ulists2');
+			rlist = rlist.split(" ");
+			var score = [];
+			for(let i=0; i<rlist.length; i++) {
+				score[i] = localStorage.getItem(rlist[i]+"score");
+				localStorage.setItem(score[i],rlist[i]);
+			}
+			score.sort(function(a,b){
+				return b-a;
+			});
+			for(let i=0; i<rlist.length; i++) {
+				document.getElementById('name'+i).innerHTML = localStorage.getItem(score[i]);
+				document.getElementById('score'+i).innerHTML = score[i];
+			}
+			
+			//coins = localStorage.getItem(username+"score");
+			//all stored in ulist
+		}
+		
+		function submit() {
+				var a = (document.getElementById('nssq').value).toString();
+					if(a.indexOf(' ') >= 0) {
+						alert("Empty or Space are not allowed.");
+					} else if(a.length > 11) {
+						alert("Username should be less than 12 characters");
+					} else {
+						var list = localStorage.getItem('ulists2');
+							localStorage.setItem('ulists2', list+" "+a);
+					}
+				username = a;
+			start();
+		}
+		function start() {
+			document.getElementById('game').style.display = 'block';
+			document.getElementById('firstpage').style.display = 'none';
+			document.getElementById('game').style.zIndex = 37;
+			bll();
+		}
+		function otherStart() {
+			document.getElementById('birdarea').innerHTML = '<img class="fullbgimg" src="./assets/bg.png" />'+
+    		'<div id="bird">'+
+    		  '<img id="brd" class="fullbgimg bll" />'+
+    		'</div>';
+			bll();
+		}
+		
+  </script>
+</body>
+
+</html>
